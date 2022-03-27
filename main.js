@@ -1110,8 +1110,6 @@ function checkKeyDown(e)
         {
         restart();
         SetSpecificStage(-0.5);
-
-
         }
     
 if (e.keyCode == '13' && gameover==true && screen==-2) //enter
@@ -1639,9 +1637,9 @@ function playergravity()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function actorsgravity()
 {
-            if(Archer1actor_y>340){Archer1actor_y=340;heroHealth=heroHealth-100;}
-            if(Archer2actor_y>340){Archer2actor_y=340;heroHealth=heroHealth-100;}
-            if(Archer3actor_y>340){Archer3actor_y=340;heroHealth=heroHealth-100;}
+            if(Archer1actor_y>340){Archer1actor_y=340;}
+            if(Archer2actor_y>340){Archer2actor_y=340;}
+            if(Archer3actor_y>340){Archer3actor_y=340;}
             if(screen==1){Archer1NextScreenArray=screenarray3[Archer1actor_y-1+120][Archer1actor_x+64];}
             if(screen==1){Archer2NextScreenArray=screenarray3[Archer2actor_y-1+120][Archer2actor_x+64];}
             if(screen==1){Archer3NextScreenArray=screenarray3[Archer3actor_y-1+120][Archer3actor_x+64];}
