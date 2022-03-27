@@ -1880,34 +1880,59 @@ function HandleNewStage(NewStage)
 
 	if( NewStage == -0.5 ) 
 	{
+    DestroySpecificActorOfTheWorld(VictoryRudis);
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher1);
+    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
+	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher2);
+	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+    if(actorsIngame.indexOf(EnemyArcher3) > -1)
+    DestroySpecificActorOfTheWorld(EnemyArcher3);
+    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
+    DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
 		Knifevar=spawnActor('Knife', 175, 0, 2, "Knife.png","Knife" );  
 	}
 
 	if( NewStage == 0 ) 
 	{
 DestroySpecificActorOfTheWorld(Knifevar);
-
-
-if( actorsIngame.indexOf(EnemyArcher1) > -1  && actorsIngame.indexOf(EnemyArcher2) > -1 && actorsIngame.indexOf(EnemyArcher3) > -1 ) {
-    DestroySpecificActorOfTheWorld(EnemyArcher1);	
-    DestroySpecificActorOfTheWorld(EnemyArcher2); 
-    DestroySpecificActorOfTheWorld(EnemyArcher3);
+    DestroySpecificActorOfTheWorld(VictoryRudis);
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher1);
+    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
     DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
+	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher2);
+	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
     DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
-    DestroySpecificActorOfTheWorld(EnemyArcher3AI);}	
+    if(actorsIngame.indexOf(EnemyArcher3) > -1)
+    DestroySpecificActorOfTheWorld(EnemyArcher3);
+    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
+    DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
+
+}	
 	}
 	if( NewStage == 1 ) 
 	{
 
-if( actorsIngame.indexOf(EnemyArcher1) > -1  && actorsIngame.indexOf(EnemyArcher2) > -1 && actorsIngame.indexOf(EnemyArcher3) > -1 ) {
-
-    DestroySpecificActorOfTheWorld(EnemyArcher1);	
-    DestroySpecificActorOfTheWorld(EnemyArcher2); 
-    DestroySpecificActorOfTheWorld(EnemyArcher3);
+    DestroySpecificActorOfTheWorld(VictoryRudis);
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher1);
+    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
     DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
+	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher2);
+	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
     DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+    if(actorsIngame.indexOf(EnemyArcher3) > -1)
+    DestroySpecificActorOfTheWorld(EnemyArcher3);
+    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
     DestroySpecificActorOfTheWorld(EnemyArcher3AI);
-}
 
 		Archer1actor_y = 0;
  			Archer2actor_y = 0;
@@ -1931,16 +1956,20 @@ if( actorsIngame.indexOf(EnemyArcher1) > -1  && actorsIngame.indexOf(EnemyArcher
 	}
 	if( NewStage == 2 ) 
 	{    
-   DestroySpecificActorOfTheWorld(VictoryRudis);
-if( actorsIngame.indexOf(EnemyArcher1) > -1  && actorsIngame.indexOf(EnemyArcher2) > -1 && actorsIngame.indexOf(EnemyArcher3) > -1 ) {
-
-    DestroySpecificActorOfTheWorld(EnemyArcher1);	
-    DestroySpecificActorOfTheWorld(EnemyArcher2); 
-    DestroySpecificActorOfTheWorld(EnemyArcher3);
+    DestroySpecificActorOfTheWorld(VictoryRudis);
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher1);
+    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
     DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
+	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher2);
+	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
     DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+    if(actorsIngame.indexOf(EnemyArcher3) > -1)
+    DestroySpecificActorOfTheWorld(EnemyArcher3);
+    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
     DestroySpecificActorOfTheWorld(EnemyArcher3AI);
-}
+
 
 			Archer1actor_y = 0;
  			Archer2actor_y = 0;
@@ -1965,13 +1994,21 @@ if( actorsIngame.indexOf(EnemyArcher1) > -1  && actorsIngame.indexOf(EnemyArcher
 	if( NewStage == 3 ) 
 	{
 
-if( actorsIngame.indexOf(EnemyArcher1) > -1  && actorsIngame.indexOf(EnemyArcher2) > -1 && actorsIngame.indexOf(EnemyArcher3) > -1 ) {
-    DestroySpecificActorOfTheWorld(EnemyArcher1);	
-    DestroySpecificActorOfTheWorld(EnemyArcher2); 
-    DestroySpecificActorOfTheWorld(EnemyArcher3);
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher1);
+    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
     DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
+	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
+    DestroySpecificActorOfTheWorld(EnemyArcher2);
+	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
     DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
-    DestroySpecificActorOfTheWorld(EnemyArcher3AI);}
+    if(actorsIngame.indexOf(EnemyArcher3) > -1)
+    DestroySpecificActorOfTheWorld(EnemyArcher3);
+    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
+    DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
+
+    
 
 		VictoryRudis = spawnActor('Rudis Level 1',  175, 0,  1, "rudis40.png", "Rudis");   
 
