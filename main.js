@@ -477,14 +477,17 @@ class AIController extends Controller
   }
   movementtickAI()
   {
+var gr0=getRandomInt(200);
+var gr1=getRandomInt(60);
 	  if( getRandomInt(2) == 0 ) 
-	  {	 
-		 this.SetDesiredLocation(this.controlledactor.x+getRandomInt(200), this.controlledactor.y+getRandomInt(60)); 
+	  { 
+         if(this.controlledactor.x+gr0<350)	 
+		 this.SetDesiredLocation(this.controlledactor.x+gr0, this.controlledactor.y+gr1); 
 	  }	
 	  else 
 	  {
-			
-		 this.SetDesiredLocation(this.controlledactor.x+getRandomInt(200) *-1, this.controlledactor.y+getRandomInt(60)); 	   
+		 if(this.controlledactor.x-gr0>-10)	 	
+		 this.SetDesiredLocation(this.controlledactor.x+gr0 *-1, this.controlledactor.y+gr1); 	   
 	  }
   }  
   
@@ -917,7 +920,6 @@ function buttonright()
           if(screen<3 || (screen==3 && player_x<130))//rudis freedom
             { 
         go_left=false;go_right=true;crouch=false;attack=false;go_left=false; velocity_right=1; velocity_left=0; velocity_attack=0;to_left=false;
-        //if(run_animation_right==2){run_animation_right=0;}else{run_animation_right++;}
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_right=0;}else{run_animation_right=1}
             }
           else{ player_x=130;go_right=false;rightpressed=false;velocity_right=0;}
