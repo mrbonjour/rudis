@@ -132,7 +132,6 @@ var timebasejump=0;
 var screenArrayNext;
 var botiquin0_agafat=false;        
 var botiquin1_agafat=false;
-//var botiquin2_agafat=false;
 var freedomplayable=true;
 var Archer1actor_y = 0; 
 var Archer1actor_x = 0;
@@ -481,13 +480,13 @@ var gr0=getRandomInt(200);
 var gr1=getRandomInt(60);
 	  if( getRandomInt(2) == 0 ) 
 	  { 
-         if(this.controlledactor.x+gr0<350)	 
-		 this.SetDesiredLocation(this.controlledactor.x+gr0, this.controlledactor.y+gr1); 
+         if(this.controlledactor.x+gr0<350 )	 
+		 this.SetDesiredLocation(this.controlledactor.x+gr0, this.controlledactor.y); //this.controlledactor.y+gr1
 	  }	
 	  else 
 	  {
 		 if(this.controlledactor.x-gr0>-10)	 	
-		 this.SetDesiredLocation(this.controlledactor.x+gr0 *-1, this.controlledactor.y+gr1); 	   
+		 this.SetDesiredLocation(this.controlledactor.x+gr0 *-1, this.controlledactor.y); //this.controlledactor.y  +gr1
 	  }
   }  
   
@@ -1529,7 +1528,7 @@ if((screen==3 && player_x>=130))//rudisfreedom
     //xivatos de variables
    if(screen>-1)
         {
-/*          ctx.fillStyle = 'white';
+/*      ctx.fillStyle = 'white';
         ctx.font = "20px arial";
         ctx.fillText("screen:" + screen, 10, 20);
         ctx.fillText("power_jupiter:" + power_jupiter, 10, 40);
@@ -1582,9 +1581,9 @@ function playergravity()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function actorsgravity()
 {
-if(Archer1actor_y>300)Archer1actor_y=300;
-            if(Archer2actor_y>300)Archer2actor_y=300;
-            if(Archer3actor_y>300)Archer3actor_y=300;
+            if(Archer1actor_y>340)Archer1actor_y=340;
+            if(Archer2actor_y>340)Archer2actor_y=340;
+            if(Archer3actor_y>340)Archer3actor_y=340;
             if(screen==1){Archer1NextScreenArray=screenarray3[Archer1actor_y-1+120][Archer1actor_x+64];}
             if(screen==1){Archer2NextScreenArray=screenarray3[Archer2actor_y-1+120][Archer2actor_x+64];}
             if(screen==1){Archer3NextScreenArray=screenarray3[Archer3actor_y-1+120][Archer3actor_x+64];}
@@ -1986,7 +1985,7 @@ if( actorsIngame.indexOf(EnemyArcher1) > -1  && actorsIngame.indexOf(EnemyArcher
 function bIsOnFloorAlready(ActorChecking)
 {
 
-	if( ActorChecking.y >= 190 )  //190
+	if( ActorChecking.y >= 360 )  //190
 	{
 		return true; 	
 	}
