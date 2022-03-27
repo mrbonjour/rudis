@@ -270,7 +270,6 @@ class Actor
 	ActorTakeDamage(DamageAmount)
 	{
 		this.ActorHealth -= DamageAmount; 
-		console.log("FROM Actor taking damage now health is"+this.ActorHealth ); 
 		
 		if( this.ActorHealth <= 0 && this.ActorState == "Alive" ) 
 		{
@@ -282,7 +281,6 @@ class Actor
   
 	ActorDie()
 	{
-		console.log("FROM Actor DYING is"+this.ActorHealth ); 	
 		this.ActorSetActorState("Dead");
 		this.ChangeMainTexture("enemyDeadR.png");
 		setInterval(this.DestroySelf.bind(this),3000.0); //Find a way to clear the timer
@@ -1907,6 +1905,19 @@ function PlayerUnleashAttack( TypeOfAttack )
 	   {     
 		   takeDamage("EnemyArcher", power_jupiter *10); 	 //Neongho added *10
        }
+		actorsIngame.forEach(CheckAttackForActors);
+		function CheckAttackForActors(value, index, array) 
+		{
+			
+			if( value != null ) 
+			{
+				if( DoesCollideXYWithXY(player_x, player_y, value.x, value.y, 10, 10)    )  //Do that Y is also a variable of proximity when colliding
+				{
+					value.ActorTakeDamage(power_jupiter *10); 
+				}	
+			}
+
+		}	
 	}
 
 
