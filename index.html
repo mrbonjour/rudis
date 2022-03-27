@@ -18,11 +18,11 @@ Your web browser does not support canvas.
 </canvas>
 </div>
 <div id="buttons">
-<button class='restartbutton' ontouchstart='restart();SetSpecificStage(-0.5);' onclick='' style='position:absolute; top:365px; left: 0px; width:360px; height: 40px; background-color:red; color:white; '>
+<button class='restartbutton' ontouchstart='restart();SetSpecificStage(-1);' onclick='' style='position:absolute; top:365px; left: 0px; width:360px; height: 40px; background-color:red; color:white; '>
 <canvas class="buttonrestart"id="buttonrestart" width="360" height="40">
 </canvas>
 </button>
-<button class='enterbutton' ontouchstart='restart();SetSpecificStage(-0.5);' ontouchend='' style='position:absolute; top:495px; left: 90px; width:90px; height: 90px; background-color:blue; '>
+<button class='enterbutton' ontouchstart='if(screen=-1){restart();SetSpecificStage(-0.5);}' ontouchend='' style='position:absolute; top:495px; left: 90px; width:90px; height: 90px; background-color:blue; '>
 <canvas class="buttonenter"id="buttonenter" width="90" height="90">
 </canvas>
 </button>
