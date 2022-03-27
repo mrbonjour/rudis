@@ -165,6 +165,83 @@ var desiredActor3yprevious;
 var zpressed=false;
 var leftpressed=false;
 var rightpressed=false;
+
+function restart()
+{
+let deltaTime = 0;
+let lastTimestamp = 0;
+const perfectFrameTime = 1000 / 60;
+var screen=-1;
+var player_x=-30;
+var player_y=0;
+var gravityw=false;
+var crouch=false;
+var attack=false;
+var go_left=false;
+var go_right=false;
+var protect=false;
+var AnimationState="Idle";
+var velocity_right=0;
+var velocity_left=0;
+var velocity_attack=0;
+var velocity_jupiter=0;
+var run_animation_left=0;
+var run_animation_right=0;
+var run_animation_attack=0;
+var run_animation_jupiter=0;
+var attack_state=0; //treure
+var post_jupiter=false;
+var power_jupiter=0;
+var enemy_x=260;
+var enemy_y=180;
+var bFirstenemyDead=true; 
+var arrow_x=enemy_x+64;
+var heroHealth=100; 
+var EnemyArcherHealth=100;
+var gameover=false;
+var jumping=false;
+var to_left=false;
+var counterforjump=0;
+var fightmode=false;
+var timebasejump=0;
+var screenArrayNext;
+var botiquin0_agafat=false;        
+var botiquin1_agafat=false;
+var freedomplayable=true;
+var Archer1actor_y = 0; 
+var Archer1actor_x = 0;
+var Archer1NextScreenArray;
+var Archer2actor_y = 0; 
+var Archer2actor_x = 0;
+var Archer2NextScreenArray;
+var Archer3actor_y = 0; 
+var Archer3actor_x = 0;
+var Archer3NextScreenArray;
+var Knifevar;
+var EnemyArcher1;
+var EnemyArcher2;
+var EnemyArcher3;
+var EnemyArcher1AI;
+var EnemyArcher2AI;
+var EnemyArcher3AI;
+var VictoryRudis; 
+var Archer1jump=false;
+var Archer2jump=false;
+var Archer3jump=false;
+var Archer1PreviousScreenArray;//potser no faran falta
+var Archer2PreviousScreenArray;//potser no faran falta
+var Archer3PreviousScreenArray;//potser no faran falta
+var desiredActor1y;
+var desiredActor2y;
+var desiredActor3y;
+var desiredActor1yprevious;
+var desiredActor2yprevious;
+var desiredActor3yprevious;
+var zpressed=false;
+var leftpressed=false;
+var rightpressed=false;
+}
+
 //Classes for actors ingame
 //Runtime actors 
 class Actor 
@@ -1915,7 +1992,6 @@ DestroySpecificActorOfTheWorld(Knifevar);
     DestroySpecificActorOfTheWorld(EnemyArcher3AI);
 
 
-}	
 	}
 	if( NewStage == 1 ) 
 	{
@@ -2013,7 +2089,7 @@ DestroySpecificActorOfTheWorld(Knifevar);
 		VictoryRudis = spawnActor('Rudis Level 1',  175, 0,  1, "rudis40.png", "Rudis");   
 
 
-  }
+   }
 	
 }
 
