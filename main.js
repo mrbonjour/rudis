@@ -168,78 +168,77 @@ var rightpressed=false;
 
 function restart()
 {
-let deltaTime = 0;
-let lastTimestamp = 0;
-const perfectFrameTime = 1000 / 60;
-var screen=-1;
-var player_x=-30;
-var player_y=0;
-var gravityw=false;
-var crouch=false;
-var attack=false;
-var go_left=false;
-var go_right=false;
-var protect=false;
-var AnimationState="Idle";
-var velocity_right=0;
-var velocity_left=0;
-var velocity_attack=0;
-var velocity_jupiter=0;
-var run_animation_left=0;
-var run_animation_right=0;
-var run_animation_attack=0;
-var run_animation_jupiter=0;
-var attack_state=0; //treure
-var post_jupiter=false;
-var power_jupiter=0;
-var enemy_x=260;
-var enemy_y=180;
-var bFirstenemyDead=true; 
-var arrow_x=enemy_x+64;
-var heroHealth=100; 
-var EnemyArcherHealth=100;
-var gameover=false;
-var jumping=false;
-var to_left=false;
-var counterforjump=0;
-var fightmode=false;
-var timebasejump=0;
-var screenArrayNext;
-var botiquin0_agafat=false;        
-var botiquin1_agafat=false;
-var freedomplayable=true;
-var Archer1actor_y = 0; 
-var Archer1actor_x = 0;
-var Archer1NextScreenArray;
-var Archer2actor_y = 0; 
-var Archer2actor_x = 0;
-var Archer2NextScreenArray;
-var Archer3actor_y = 0; 
-var Archer3actor_x = 0;
-var Archer3NextScreenArray;
-var Knifevar;
-var EnemyArcher1;
-var EnemyArcher2;
-var EnemyArcher3;
-var EnemyArcher1AI;
-var EnemyArcher2AI;
-var EnemyArcher3AI;
-var VictoryRudis; 
-var Archer1jump=false;
-var Archer2jump=false;
-var Archer3jump=false;
-var Archer1PreviousScreenArray;//potser no faran falta
-var Archer2PreviousScreenArray;//potser no faran falta
-var Archer3PreviousScreenArray;//potser no faran falta
-var desiredActor1y;
-var desiredActor2y;
-var desiredActor3y;
-var desiredActor1yprevious;
-var desiredActor2yprevious;
-var desiredActor3yprevious;
-var zpressed=false;
-var leftpressed=false;
-var rightpressed=false;
+deltaTime = 0;
+lastTimestamp = 0;
+screen=-1;
+player_x=-30;
+player_y=0;
+gravityw=false;
+crouch=false;
+attack=false;
+go_left=false;
+go_right=false;
+protect=false;
+AnimationState="Idle";
+velocity_right=0;
+velocity_left=0;
+velocity_attack=0;
+velocity_jupiter=0;
+run_animation_left=0;
+run_animation_right=0;
+run_animation_attack=0;
+run_animation_jupiter=0;
+attack_state=0; //treure
+post_jupiter=false;
+power_jupiter=0;
+enemy_x=260;
+enemy_y=180;
+bFirstenemyDead=true; 
+arrow_x=enemy_x+64;
+heroHealth=100; 
+EnemyArcherHealth=100;
+gameover=false;
+jumping=false;
+to_left=false;
+counterforjump=0;
+fightmode=false;
+timebasejump=0;
+screenArrayNext;
+botiquin0_agafat=false;        
+botiquin1_agafat=false;
+freedomplayable=true;
+Archer1actor_y = 0; 
+Archer1actor_x = 0;
+Archer1NextScreenArray;
+Archer2actor_y = 0; 
+Archer2actor_x = 0;
+Archer2NextScreenArray;
+Archer3actor_y = 0; 
+Archer3actor_x = 0;
+Archer3NextScreenArray;
+Knifevar;
+EnemyArcher1;
+EnemyArcher2;
+EnemyArcher3;
+EnemyArcher1AI;
+EnemyArcher2AI;
+EnemyArcher3AI;
+VictoryRudis; 
+Archer1jump=false;
+Archer2jump=false;
+Archer3jump=false;
+Archer1PreviousScreenArray;//potser no faran falta
+Archer2PreviousScreenArray;//potser no faran falta
+Archer3PreviousScreenArray;//potser no faran falta
+desiredActor1y;
+desiredActor2y;
+desiredActor3y;
+desiredActor1yprevious;
+desiredActor2yprevious;
+desiredActor3yprevious;
+zpressed=false;
+leftpressed=false;
+rightpressed=false;
 }
 
 //Classes for actors ingame
@@ -1117,24 +1116,16 @@ function checkKeyDown(e)
 		
     if (e.keyCode == '13' && gameover==false  && screen==-1) //enter
         {
+        restart();
         SetSpecificStage(-0.5);
-        //initworkers();    
 
 
         }
     
 if (e.keyCode == '13' && gameover==true && screen==-2) //enter
         {
-        screen=-1;        
-        gameover=false;
-
-
-
-
-
-
-
-
+        restart();
+        SetSpecificStage(-1);
 
         }
     
@@ -1658,9 +1649,9 @@ function playergravity()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function actorsgravity()
 {
-            if(Archer1actor_y>340)Archer1actor_y=340;
-            if(Archer2actor_y>340)Archer2actor_y=340;
-            if(Archer3actor_y>340)Archer3actor_y=340;
+            if(Archer1actor_y>340){Archer1actor_y=340;heroHealth=heroHealth-100;}
+            if(Archer2actor_y>340){Archer2actor_y=340;heroHealth=heroHealth-100;}
+            if(Archer3actor_y>340){Archer3actor_y=340;heroHealth=heroHealth-100;}
             if(screen==1){Archer1NextScreenArray=screenarray3[Archer1actor_y-1+120][Archer1actor_x+64];}
             if(screen==1){Archer2NextScreenArray=screenarray3[Archer2actor_y-1+120][Archer2actor_x+64];}
             if(screen==1){Archer3NextScreenArray=screenarray3[Archer3actor_y-1+120][Archer3actor_x+64];}
