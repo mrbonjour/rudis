@@ -77,12 +77,9 @@ var rudis=new Image();
 
 
 
-var column=new Image();
+
 var fletxaL=new Image();
 var fletxaR=new Image();
-var coliseum=new Image();
-var columns=new Image();
-var fire=new Image();
 
 
 
@@ -729,15 +726,10 @@ function preloader()
 
 
 
-
-
-
-        column.setAttribute("src", "Col2.png");
         fletxaL.setAttribute("src", "fletxa-left.png");
         fletxaR.setAttribute("src", "fletxa-right.png");
- 		coliseum.setAttribute("src", "coliseum.png");
- 		columns.setAttribute("src", "columns.png");
-        fire.setAttribute("src", "fire64.png");
+
+
 	    }
     }
 function addLoadEvent(func) 
@@ -1125,8 +1117,6 @@ function checkKeyDown(e)
 if (e.keyCode == '13' && gameover==true && screen==-2) //enter
         {
         restart();
-        SetSpecificStage(-1);
-
         }
     
     }
@@ -2228,7 +2218,7 @@ if (canvasrestart.getContext)
     ctxrestart.beginPath();
     ctxrestart.fillStyle = 'black';
     ctxrestart.font = "22px arial";
-    ctxrestart.fillText("Restart" , 134, 26);
+    ctxrestart.fillText("Reset Game" , 118, 26);
 
     }
 var canvasleft = document.getElementById('buttonleft');
