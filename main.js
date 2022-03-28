@@ -91,7 +91,6 @@ addLoadEvent(preloader);
 let deltaTime = 0;
 let lastTimestamp = 0;
 const perfectFrameTime = 1000 / 60;
-//var lastTimestampint=0;
 var screen=-1;
 var player_x=-30;
 var player_y=0;
@@ -100,7 +99,6 @@ var crouch=false;
 var attack=false;
 var go_left=false;
 var go_right=false;
-//var bAimLeft=false; 
 var protect=false;
 var AnimationState="Idle";
 var velocity_right=0;
@@ -915,7 +913,7 @@ function buttonx()
         function loopxb()
             {
             go_left=false; go_right=false; crouch=false; attack=true; velocity_right=0; velocity_left=0; velocity_attack=2;run_animation_attack=0;power_jupiter=power_jupiter+0.2;     
-	        if(Math.trunc(lastTimestamp/100) % 2){run_animation_jupiter=0;playerLoadingJupiter();}else{run_animation_jupiter=1;}
+	        if(Math.trunc(lastTimestamp/200) % 2){run_animation_jupiter=0;playerLoadingJupiter();}else{run_animation_jupiter=1;playerLoadingJupiter();}
             if(jupiterbuttonreleased==false){loopxb();}else{buttonxn();}
             }
         }
