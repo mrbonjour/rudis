@@ -908,7 +908,7 @@ if (canvas.getContext)
 
 function buttonx()
         {
-        if(jupiterbuttonreleased==false){loopxb();}else{buttonxn();}
+        if(jupiterbuttonreleased==false && jupiterbuttonpressed==true){setTimeout(loopxb,100);}else{buttonxn();}
 
         function loopxb()
             {
