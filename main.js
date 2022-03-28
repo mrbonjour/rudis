@@ -1897,14 +1897,7 @@ function PlayerUnleashAttack( TypeOfAttack )
 			}
 
 		}		
-	   
-	   
-
-	   
 	}
-
-
-
 	if( TypeOfAttack == "Jupiter")
 	{
 	audiosword.play();
@@ -1926,8 +1919,50 @@ function PlayerUnleashAttack( TypeOfAttack )
 
 		}	
 	}
+	if( TypeOfAttack == "Normal")
+	{
+	   if(run_animation_attack==0){audiosword2.play();}
+       if( DoesPlayerIsInAttackProximityInvertedOrder() )
+	   {     
+		   takeDamage("EnemyArcher", 5); 	
+       }
+	   
+		actorsIngame.forEach(CheckAttackForActors);
+		function CheckAttackForActors(value, index, array) 
 
+		{
+			
+			if( value != null ) 
+			{
+				if( DoesCollideXYWithXY(player_x, player_y, value.x, value.y, 10, 10)    )  //Do that Y is also a variable of proximity when colliding
+				{
+					value.ActorTakeDamage(25); 
+				}	
+			}
+		}		
+	}
+	if( TypeOfAttack == "Jupiter")
+	{
 
+	audiosword.play();
+       if( DoesPlayerIsInAttackProximityInvertedOrder() )
+	   {     
+		   takeDamage("EnemyArcher", power_jupiter *10); 	
+       }
+		actorsIngame.forEach(CheckAttackForActors);
+		function CheckAttackForActors(value, index, array) 
+		{
+			
+			if( value != null ) 
+			{
+				if( DoesCollideXYWithXY(player_x, player_y, value.x, value.y, 10, 10)    )  //Do that Y is also a variable of proximity when colliding
+
+				{
+					value.ActorTakeDamage(power_jupiter *10); 
+				}	
+			}
+		}	
+	}
 return true; 
 }
 //For specific next stage to go at 
