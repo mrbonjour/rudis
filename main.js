@@ -578,8 +578,22 @@ var gr1=getRandomInt(60);
 	{	
 		if( this.controlledactor.ActorState != "Dead" ) 
 		{
-            this.controlledactor.y=EnemyArcher1.y;
-			spawnActor('EnemyArcherArrow', this.controlledactor.x, this.controlledactor.y, 1,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0 	
+/*            if(this.controlledactor.name=="EnemyArcher1")
+            this.controlledactor.y=EnemyArcherExtra1.y+54;
+            if(this.controlledactor.name=="EnemyArcher2")
+            this.controlledactor.y=EnemyArcherExtra2.y+54;
+            if(this.controlledactor.name=="EnemyArcher3")
+            this.controlledactor.y=EnemyArcherExtra3.y+54;
+            if(this.controlledactor.name=="EnemyArcherExtra1")
+            this.controlledactor.y=EnemyArcherExtra1.y+54;
+            if(this.controlledactor.name=="EnemyArcherExtra2")
+            this.controlledactor.y=EnemyArcherExtra2.y+54;
+            if(this.controlledactor.name=="EnemyArcherExtra3")
+            this.controlledactor.y=EnemyArcherExtra3.y+54;*/
+            if(player_x+64<this.controlledactor.x+64)
+			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+64, 1,"fireL.png", "Projectile", null , 5000, -200, 0);   //actor 0
+            if(player_x+64>this.controlledactor.x+64)
+			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+64, 1,"fireR.png", "Projectile", null , 5000, 200, 0);   //actor 0 	
 		}
 	}
   
@@ -2177,8 +2191,7 @@ function AISpawnArrow()
 		else 
 		{
 			spawnActor('EnemyArcherArrow', enemy_x, enemy_y+54, 1,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 			
-		}
-		
+		}		
 	}
 
 }
