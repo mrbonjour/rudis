@@ -555,12 +555,12 @@ var gr1=getRandomInt(60);
 	  if( getRandomInt(2) == 0 ) 
 	  { 
          if(this.controlledactor.x+gr0<350 )	 
-		 this.SetDesiredLocation(this.controlledactor.x+gr0, this.controlledactor.y); 
+		 this.SetDesiredLocation(this.controlledactor.x+gr0, this.controlledactor.y); //this.controlledactor.y+gr1
 	  }	
 	  else 
 	  {
 		 if(this.controlledactor.x-gr0>-10)	 	
-		 this.SetDesiredLocation(this.controlledactor.x+gr0 *-1, this.controlledactor.y); 
+		 this.SetDesiredLocation(this.controlledactor.x+gr0 *-1, this.controlledactor.y); //this.controlledactor.y  +gr1
 	  }
   }  
   
@@ -579,16 +579,16 @@ var gr1=getRandomInt(60);
 		if( this.controlledactor.ActorState != "Dead" ) 
 		{
             if(player_x+64<this.controlledactor.x+64)
-			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+54, 1,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0
-            if(player_x+64>=this.controlledactor.x+64)
-			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+54, 1,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 	
+			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+64, 1,"fireL.png", "Projectile", null , 5000, -200, 0);
+            if(player_x+64>this.controlledactor.x+64)
+			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+64, 1,"fireR.png", "Projectile", null , 5000, 200, 0);
 		}
 	}
   
-  } 
+  }
   
   
-}  
+}
 
 let actorsIngame = []; 
 
@@ -2179,7 +2179,8 @@ function AISpawnArrow()
 		else 
 		{
 			spawnActor('EnemyArcherArrow', enemy_x, enemy_y+54, 1,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 			
-		}		
+		}
+		
 	}
 
 }
