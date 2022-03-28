@@ -2234,7 +2234,7 @@ if (canvasrestart.getContext)
     ctxrestart.beginPath();
     ctxrestart.fillStyle = 'black';
     ctxrestart.font = "22px arial";
-    ctxrestart.fillText("Reset Game" , 118, 26);
+    ctxrestart.fillText("Reset Game" , 108, 23);
 
     }
 var canvasleft = document.getElementById('buttonleft');
