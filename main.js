@@ -163,7 +163,7 @@ var zpressed=false;
 var leftpressed=false;
 var rightpressed=false;
 var jupiterbuttonpressed=false;
-
+var jupiterbuttonreleased=false;
 function restart()
 {
 deltaTime = 0;
@@ -238,7 +238,7 @@ zpressed=false;
 leftpressed=false;
 rightpressed=false;
 jupiterbuttonpressed=false;
-
+jupiterbuttonreleased=false;
 }
 
 //Classes for actors ingame
@@ -910,18 +910,19 @@ if (canvas.getContext)
 
 function buttonx()
         {
-        if(jupiterbuttonpressed==true){loopxb();}else{buttonxn();}
+        if(jupiterbuttonreleased==false){loopxb();}else{buttonxn();}
 
         function loopxb()
             {
             go_left=false; go_right=false; crouch=false; attack=true; velocity_right=0; velocity_left=0; velocity_attack=2;run_animation_attack=0;power_jupiter=power_jupiter+0.2;     
 	        if(Math.trunc(lastTimestamp/100) % 2){run_animation_jupiter=0;playerLoadingJupiter();}else{run_animation_jupiter=1;}
-            if(jupiterbuttonpressed==true){loopxb();}else{buttonxn();}
+            if(jupiterbuttonreleased==false){loopxb();}else{buttonxn();}
             }
         }
 function buttonxn()
 {
         jupiterbuttonpressed=false;
+        jupiterbuttonreleased=false;
         post_jupiter=true;
         velocity_attack=0;
         attack = false;	
