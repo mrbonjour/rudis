@@ -1616,6 +1616,7 @@ if((screen==3 && player_x>=130))//rudisfreedom
         ctx.font = "20px arial";
         ctx.fillText("Hero", 10, 18);
 	    ctx.fillText("Boss", 305, 18);
+        ctx.fillText("Jupiter power:" + power_jupiter, 10, 38);
 		}
 		
     ctx.font = "10px arial"; 
