@@ -588,7 +588,7 @@ var gr1=getRandomInt(60);
   } 
   
   
-} 
+}  
 
 let actorsIngame = []; 
 
