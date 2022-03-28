@@ -116,6 +116,7 @@ var enemy_x=260;
 var enemy_y=180;
 var bFirstenemyDead=true; 
 var arrow_x=enemy_x+64;
+var arrow_y=enemy_y+64;
 var heroHealth=100; 
 var EnemyArcherHealth=100;
 var gameover=false;
@@ -191,6 +192,7 @@ enemy_x=260;
 enemy_y=180;
 bFirstenemyDead=true; 
 arrow_x=enemy_x+64;
+arrow_y=enemy_y+64;
 heroHealth=100; 
 EnemyArcherHealth=100;
 gameover=false;
@@ -576,7 +578,8 @@ var gr1=getRandomInt(60);
 	{	
 		if( this.controlledactor.ActorState != "Dead" ) 
 		{
-			spawnActor('EnemyArcherArrow', this.controlledactor.x, this.controlledactor.y, 1,"fletxa-left.png", "Projectile", null , 5000, -100, 0);   //actor 0 	
+            this.controlledactor.y=EnemyArcher1.y;
+			spawnActor('EnemyArcherArrow', this.controlledactor.x, this.controlledactor.y, 1,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0 	
 		}
 	}
   
@@ -725,8 +728,8 @@ function preloader()
 
 
 
-        fletxaL.setAttribute("src", "fletxa-left.png");
-        fletxaR.setAttribute("src", "fletxa-right.png");
+        fletxaL.setAttribute("src", "fireL.png");
+        fletxaR.setAttribute("src", "fireR.png");
 
 
 	    }
@@ -2169,11 +2172,11 @@ function AISpawnArrow()
 	
 		if( enemy_x > player_x  ) 
 		{
-			spawnActor('EnemyArcherArrow', enemy_x, 220, 1,"fletxa-left.png", "Projectile", null , 5000, -100, 0);   //actor 0 			
+			spawnActor('EnemyArcherArrow', enemy_x, enemy_y+54, 1,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0 			
 		}
 		else 
 		{
-			spawnActor('EnemyArcherArrow', enemy_x, 220, 1,"fletxa-right.png", "Projectile", null , 5000, 100, 0);   //actor 0 			
+			spawnActor('EnemyArcherArrow', enemy_x, enemy_y+54, 1,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 			
 		}
 		
 	}
