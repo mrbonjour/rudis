@@ -591,9 +591,9 @@ var gr1=getRandomInt(60);
             if(this.controlledactor.name=="EnemyArcherExtra3")
             this.controlledactor.y=EnemyArcherExtra3.y+54;*/
             if(player_x+64<this.controlledactor.x+64)
-			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+64, 1,"fireL.png", "Projectile", null , 5000, -200, 0);   //actor 0
+			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+64+54, 1,"fireL.png", "Projectile", null , 5000, -200, 0);   //actor 0
             if(player_x+64>this.controlledactor.x+64)
-			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+64, 1,"fireR.png", "Projectile", null , 5000, 200, 0);   //actor 0 	
+			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+64+54, 1,"fireR.png", "Projectile", null , 5000, 200, 0);   //actor 0 	
 		}
 	}
   
