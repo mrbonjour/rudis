@@ -580,7 +580,7 @@ var gr1=getRandomInt(60);
 		{
             if(player_x+64<this.controlledactor.x+64)
 			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+54, 1,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0
-            if(player_x+64>this.controlledactor.x+64)
+            if(player_x+64>=this.controlledactor.x+64)
 			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+54, 1,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 	
 		}
 	}
