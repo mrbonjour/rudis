@@ -555,12 +555,12 @@ var gr1=getRandomInt(60);
 	  if( getRandomInt(2) == 0 ) 
 	  { 
          if(this.controlledactor.x+gr0<350 )	 
-		 this.SetDesiredLocation(this.controlledactor.x+gr0, this.controlledactor.y); //this.controlledactor.y+gr1
+		 this.SetDesiredLocation(this.controlledactor.x+gr0, this.controlledactor.y); 
 	  }	
 	  else 
 	  {
 		 if(this.controlledactor.x-gr0>-10)	 	
-		 this.SetDesiredLocation(this.controlledactor.x+gr0 *-1, this.controlledactor.y); //this.controlledactor.y  +gr1
+		 this.SetDesiredLocation(this.controlledactor.x+gr0 *-1, this.controlledactor.y); 
 	  }
   }  
   
@@ -578,22 +578,10 @@ var gr1=getRandomInt(60);
 	{	
 		if( this.controlledactor.ActorState != "Dead" ) 
 		{
-/*            if(this.controlledactor.name=="EnemyArcher1")
-            this.controlledactor.y=EnemyArcherExtra1.y+54;
-            if(this.controlledactor.name=="EnemyArcher2")
-            this.controlledactor.y=EnemyArcherExtra2.y+54;
-            if(this.controlledactor.name=="EnemyArcher3")
-            this.controlledactor.y=EnemyArcherExtra3.y+54;
-            if(this.controlledactor.name=="EnemyArcherExtra1")
-            this.controlledactor.y=EnemyArcherExtra1.y+54;
-            if(this.controlledactor.name=="EnemyArcherExtra2")
-            this.controlledactor.y=EnemyArcherExtra2.y+54;
-            if(this.controlledactor.name=="EnemyArcherExtra3")
-            this.controlledactor.y=EnemyArcherExtra3.y+54;*/
             if(player_x+64<this.controlledactor.x+64)
-			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+64+54, 1,"fireL.png", "Projectile", null , 5000, -200, 0);   //actor 0
+			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+54, 1,"fireL.png", "Projectile", null , 5000, -200, 0);   //actor 0
             if(player_x+64>this.controlledactor.x+64)
-			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+64+54, 1,"fireR.png", "Projectile", null , 5000, 200, 0);   //actor 0 	
+			spawnActor('EnemyArcherArrow' + this.controlledactor.name, this.controlledactor.x, this.controlledactor.y+54, 1,"fireR.png", "Projectile", null , 5000, 200, 0);   //actor 0 	
 		}
 	}
   
