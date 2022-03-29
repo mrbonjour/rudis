@@ -484,7 +484,7 @@ class Projectile extends Actor
 		{		
 			if( !protect )
 			{
-				takeDamage("Hero", 2); 
+				takeDamage("Hero", 10); 
 				this.DestroySelf(); 				
 			}
 			else
@@ -645,11 +645,6 @@ function spawnActor(name, x,y, team, mainTexture, actorClass, ControlledActor, L
 
 	return actorsIngame[actorsIngame.length-1]; 
 }
-
-
-
-let ArrowSpawnerTimerHandle = setInterval( AISpawnArrow, 2000 ); 
-
 
 
 function Intervalterminate()
@@ -1207,27 +1202,32 @@ playergravity();
 if(screen>-1)
 actorsgravity();
 
-
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 || actorsIngame.indexOf(EnemyArcher2) > -1 || actorsIngame.indexOf(EnemyArcher3) > -1 ) 
+        {
+if (player_x>335)player_x=335;
+        }
+    else
+        {
     // salt de pantalles  
-    if(screen==-0.5 && player_x>340){SetSpecificStage(0);player_x=-30;fightmode=false}
-    if(screen==0 && player_x<-50 && fightmode==false){SetSpecificStage(-0.5);player_x=330;fightmode=false;arrow_x=400}
-    if(screen==0 && player_x>340 && fightmode==false){SetSpecificStage(1);player_x=-30;fightmode=false;arrow_x=400}
-    if(screen==1 && player_x<-50 && fightmode==false){SetSpecificStage(0);player_x=330;fightmode=false;arrow_x=400}
-    if(screen==1 && player_x>340 && fightmode==false){SetSpecificStage(2);player_x=-30;fightmode=false;arrow_x=400}
-    if(screen==2 && player_x<-50 && fightmode==false){SetSpecificStage(1);player_x=330;fightmode=false;arrow_x=400}
-    if(screen==2 && player_x>340 && fightmode==false){SetSpecificStage(3);player_x=-30;fightmode=false;arrow_x=400}
-    if(screen==3 && player_x<-50 && fightmode==false){SetSpecificStage(2);player_x=330;fightmode=false;arrow_x=400}
-    if(screen==3 && player_x>340 && fightmode==false){SetSpecificStage(4);player_x=-30;fightmode=false;arrow_x=400}
-    if(screen==4 && player_x<-50 && fightmode==false){SetSpecificStage(3);player_x=330;fightmode=false;arrow_x=400}
-    if(screen==4 && player_x>340 && fightmode==false){SetSpecificStage(5);player_x=-30;fightmode=false;arrow_x=400}
-    if(screen==5 && player_x<-50 && fightmode==false){SetSpecificStage(4);player_x=330;fightmode=false;arrow_x=400}
-    if(screen==5 && player_x>340 && fightmode==false){SetSpecificStage(6);player_x=-30;fightmode=false;arrow_x=400}
-    if(screen==6 && player_x<-50 && fightmode==false){SetSpecificStage(5);player_x=330;fightmode=false;arrow_x=400}
-    if(screen==6 && player_x>340 && fightmode==false){SetSpecificStage(7);player_x=-30;fightmode=false;arrow_x=400}
-    if(screen==7 && player_x<-50 && fightmode==false){SetSpecificStage(6);player_x=330;fightmode=false;arrow_x=400}
-    if(screen==7 && player_x>340 && fightmode==false){SetSpecificStage(8);player_x=-30;fightmode=false;arrow_x=400}
-    if(screen==8 && player_x<-50 && fightmode==false){SetSpecificStage(7);player_x=330;fightmode=false;arrow_x=400}
-
+    if(screen==-0.5 && player_x>340 && fightmode==false) {SetSpecificStage(0);player_x=-30;fightmode=false}
+    if(screen==0 && player_x<-50 && fightmode==false){SetSpecificStage(-0.5);player_x=330;fightmode=false;}
+    if(screen==0 && player_x>340 && fightmode==false){SetSpecificStage(1);player_x=-30;fightmode=false;}
+    if(screen==1 && player_x<-50 && fightmode==false){SetSpecificStage(0);player_x=330;fightmode=false;}
+    if(screen==1 && player_x>340 && fightmode==false){SetSpecificStage(2);player_x=-30;fightmode=false;}
+    if(screen==2 && player_x<-50 && fightmode==false){SetSpecificStage(1);player_x=330;fightmode=false;}
+    if(screen==2 && player_x>340 && fightmode==false){SetSpecificStage(3);player_x=-30;fightmode=false;}
+    if(screen==3 && player_x<-50 && fightmode==false){SetSpecificStage(2);player_x=330;fightmode=false;}
+    /*if(screen==3 && player_x>340 && fightmode==false){SetSpecificStage(4);player_x=-30;fightmode=false;}
+    if(screen==4 && player_x<-50 && fightmode==false){SetSpecificStage(3);player_x=330;fightmode=false;}
+    if(screen==4 && player_x>340 && fightmode==false){SetSpecificStage(5);player_x=-30;fightmode=false;}
+    if(screen==5 && player_x<-50 && fightmode==false){SetSpecificStage(4);player_x=330;fightmode=false;}
+    if(screen==5 && player_x>340 && fightmode==false){SetSpecificStage(6);player_x=-30;fightmode=false;}
+    if(screen==6 && player_x<-50 && fightmode==false){SetSpecificStage(5);player_x=330;fightmode=false;}
+    if(screen==6 && player_x>340 && fightmode==false){SetSpecificStage(7);player_x=-30;fightmode=false;}
+    if(screen==7 && player_x<-50 && fightmode==false){SetSpecificStage(6);player_x=330;fightmode=false;}
+    if(screen==7 && player_x>340 && fightmode==false){SetSpecificStage(8);player_x=-30;fightmode=false;}
+    if(screen==8 && player_x<-50 && fightmode==false){SetSpecificStage(7);player_x=330;fightmode=false;}*/
+        }
     
     
     
@@ -1441,8 +1441,8 @@ ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
    	{
 
     //enemy
-    if(screen==0 && enemy_x>=player_x){ctx.drawImage(archer,0,0,128,128,enemy_x,enemy_y,128,128);} 
-    if(screen==0 && enemy_x<player_x){ctx.drawImage(archerR,0,0,128,128,enemy_x,enemy_y,128,128);}
+    //if(screen==0 && enemy_x>=player_x){ctx.drawImage(archer,0,0,128,128,enemy_x,enemy_y,128,128);} 
+    //if(screen==0 && enemy_x<player_x){ctx.drawImage(archerR,0,0,128,128,enemy_x,enemy_y,128,128);}
  
     //player
     if(screen>-1 && crouch==false && attack==false && protect==false && go_left==false && go_right==false && velocity_right==0 && post_jupiter==false && enemy_x>=player_x) 
@@ -1516,10 +1516,10 @@ ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
 
 
     //enemy
-    if(screen==0 && enemy_x>=player_x && EnemyArcherHealth>0){ctx.drawImage(enemyL,0,0,128,128,enemy_x,enemy_y,128,128);} 
-    if(screen==0 && enemy_x<player_x && EnemyArcherHealth>0){ctx.drawImage(enemyR,0,0,128,128,enemy_x,enemy_y,128,128);} 
+    //if(screen==0 && enemy_x>=player_x && EnemyArcherHealth>0){ctx.drawImage(enemyL,0,0,128,128,enemy_x,enemy_y,128,128);} 
+    //if(screen==0 && enemy_x<player_x && EnemyArcherHealth>0){ctx.drawImage(enemyR,0,0,128,128,enemy_x,enemy_y,128,128);} 
 
-    if(screen==0 && EnemyArcherHealth<=0){ctx.drawImage(enemyDeadR,0,0,128,128,enemy_x,enemy_y,128,128);} 
+    //if(screen==0 && EnemyArcherHealth<=0){ctx.drawImage(enemyDeadR,0,0,128,128,enemy_x,enemy_y,128,128);} 
     //player
 if(screen<3 || (screen==3 && player_x<130))
     {
@@ -1541,7 +1541,7 @@ if((screen==3 && player_x>=130))//rudisfreedom
     ctx.font = "40px arial";
     ctx.fillText("Stage 1", 119, 120); 
     ctx.fillText("Completed!", 85, 160);
-    setTimeout(function(){/*establir variables per saltar de pantalla*/SetSpecificStage(4);player_x=-30;fightmode=false;arrow_x=400},5000);
+    setTimeout(function(){/*establir variables per saltar de pantalla*/SetSpecificStage(4);player_x=-30;fightmode=false;},5000);
     }
     if(screen>-1 && velocity_right==1 && run_animation_right==0 && attack==false && go_left==false && crouch==false && go_right==true && post_jupiter==false){ctx.drawImage(heroRun0R,0,0,128,128,player_x,player_y,128,128);} //walk right
     
@@ -1600,19 +1600,6 @@ if((screen==3 && player_x>=130))//rudisfreedom
 */
 		}
 //////////////////////////////////////////////////////////       
-   if( DoesArrowCollideWithAnyone() || DoesArrowCollideWithAnyoneInvertedOrder()){ }   //takeDamage("Hero", 0.05);          
-   if( DoesPlayerIsInAttackProximity() || DoesPlayerIsInAttackProximityInvertedOrder()){   } 
-   if( DoesSwordCollideWithAnyone() || DoesSwordCollideWithAnyoneInvertedOrder()){    }
-   if( DoesJupiterCollideWithAnyone() || DoesJupiterCollideWithAnyoneInvertedOrder())
-   {  
-
-  
-
-   
-   }
-   
-
-
 		if(screen > -1 ) 
 		{
 	    ctx.drawImage(live,0,0,1.5*heroHealth, 150,        0+10 ,0 , 1.5*heroHealth,150);
@@ -1623,10 +1610,6 @@ if((screen==3 && player_x>=130))//rudisfreedom
 	    ctx.fillText("Boss", 305, 18);
         ctx.fillText("Jupiter power:" + power_jupiter, 10, 38);
 		}
-		
-    ctx.font = "10px arial"; 
-
-
 	lastTimestamp = timestamp;	
     }
 
@@ -1650,6 +1633,10 @@ function actorsgravity()
             if(Archer1actor_y>340){Archer1actor_y=340;}
             if(Archer2actor_y>340){Archer2actor_y=340;}
             if(Archer3actor_y>340){Archer3actor_y=340;}
+            if(screen==-0.5){Archer1NextScreenArray=screenarray1[Archer1actor_y-1+120][Archer1actor_x+64];}
+            if(screen==0){Archer1NextScreenArray=screenarray2[Archer1actor_y-1+120][Archer1actor_x+64];}
+            if(screen==0){Archer2NextScreenArray=screenarray2[Archer2actor_y-1+120][Archer2actor_x+64];}
+            //if(screen==0){Archer3NextScreenArray=screenarray2[Archer3actor_y-1+120][Archer3actor_x+64];}
             if(screen==1){Archer1NextScreenArray=screenarray3[Archer1actor_y-1+120][Archer1actor_x+64];}
             if(screen==1){Archer2NextScreenArray=screenarray3[Archer2actor_y-1+120][Archer2actor_x+64];}
             if(screen==1){Archer3NextScreenArray=screenarray3[Archer3actor_y-1+120][Archer3actor_x+64];}
@@ -1719,7 +1706,8 @@ function takeDamage(PCharacter, PDamageAmount)
 		if(EnemyArcherHealth < 0)
 		{
 			FirstBossDeadEvent();	
-		}			
+		}
+        			
 	}
 	
 }
@@ -1886,7 +1874,7 @@ function PlayerUnleashAttack( TypeOfAttack )
 	   if(run_animation_attack==0){audiosword2.play();}
        if( DoesPlayerIsInAttackProximity() )
 	   {     
-		   takeDamage("EnemyArcher", 5); 	
+		   takeDamage("EnemyArcher", 1); 	
        }
 	   
 		actorsIngame.forEach(CheckAttackForActors);
@@ -1897,7 +1885,7 @@ function PlayerUnleashAttack( TypeOfAttack )
 			{
 				if( DoesCollideXYWithXY(player_x, player_y, value.x, value.y, 10, 10)    )  //Do that Y is also a variable of proximity when colliding
 				{
-					value.ActorTakeDamage(25); 
+					value.ActorTakeDamage(1); 
 				}	
 			}
 
@@ -1929,7 +1917,7 @@ function PlayerUnleashAttack( TypeOfAttack )
 	   if(run_animation_attack==0){audiosword2.play();}
        if( DoesPlayerIsInAttackProximityInvertedOrder() )
 	   {     
-		   takeDamage("EnemyArcher", 5); 	
+		   takeDamage("EnemyArcher", 1); 	
        }
 	   
 		actorsIngame.forEach(CheckAttackForActors);
@@ -1941,7 +1929,7 @@ function PlayerUnleashAttack( TypeOfAttack )
 			{
 				if( DoesCollideXYWithXY(player_x, player_y, value.x, value.y, 10, 10)    )  //Do that Y is also a variable of proximity when colliding
 				{
-					value.ActorTakeDamage(25); 
+					value.ActorTakeDamage(1); 
 				}	
 			}
 		}		
@@ -1973,19 +1961,24 @@ return true;
 //For specific next stage to go at 
 function SetNextStage()
 {
-
-	//screen++; 
+    //if( actorsIngame.indexOf(EnemyArcher1) > -1 && actorsIngame.indexOf(EnemyArcher2) > -1 && actorsIngame.indexOf(EnemyArcher3) > -1 ) 
+    //{
 	clearInterval(NextStageIntervalHandle); 
 	HandleNewStage(screen); 	
-	
+	//}
 }
 //For specific stage to go at 
 function SetSpecificStage(NewStage)
 {
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 || actorsIngame.indexOf(EnemyArcher2) > -1 || actorsIngame.indexOf(EnemyArcher3) > -1 ) 
+    {
 
+    }
+    else
+    {
 	screen = NewStage; 
 	HandleNewStage(NewStage); 
-
+    }
 }
 
 function HandleNewStage(NewStage) 
@@ -2008,7 +2001,12 @@ function HandleNewStage(NewStage)
     if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
     DestroySpecificActorOfTheWorld(EnemyArcher3AI);
 
-		Knifevar=spawnActor('Knife', 175, 0, 2, "Knife.png","Knife" );  
+		Knifevar=spawnActor('Knife', 175, 0, 2, "Knife.png","Knife" );
+  		Archer1actor_y = 0;
+		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 280, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 1
+		EnemyArcher1AI = spawnActor('EnemyArcherAIController1', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher1);   //AIController evil of archer
+		EnemyArcher1AI.DesiredLocToGoX = EnemyArcher1.x; EnemyArcher1AI.DesiredLocToGoY = EnemyArcher1.y; 
+		EnemyArcher1.PawnController = EnemyArcher1AI; 
 	}
 
 	if( NewStage == 0 ) 
@@ -2027,8 +2025,18 @@ DestroySpecificActorOfTheWorld(Knifevar);
     DestroySpecificActorOfTheWorld(EnemyArcher3);
     if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
     DestroySpecificActorOfTheWorld(EnemyArcher3AI);
-
-
+		Archer1actor_y = 0;
+ 			Archer2actor_y = 0;
+		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 1
+		EnemyArcher1AI = spawnActor('EnemyArcherAIController1', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher1);   //AIController evil of archer
+		EnemyArcher1AI.DesiredLocToGoX = EnemyArcher1.x; EnemyArcher1AI.DesiredLocToGoY = EnemyArcher1.y; 
+		EnemyArcher1.PawnController = EnemyArcher1AI;  
+    Archer1actor_x=EnemyArcher1.x; 
+		EnemyArcher2 = spawnActor('EnemyArcherExtra2', 60, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 2 
+		EnemyArcher2AI = spawnActor('EnemyArcherAIController2', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher2);   //AIController evil of archer		
+		EnemyArcher2AI.DesiredLocToGoX = EnemyArcher2.x; EnemyArcher2AI.DesiredLocToGoY = EnemyArcher2.y; 		
+		EnemyArcher2.PawnController = EnemyArcher2AI;  		
+		    Archer2actor_x=EnemyArcher2.x; 
 	}
 	if( NewStage == 1 ) 
 	{
@@ -2164,25 +2172,7 @@ function KnifeIsOnFloorAlready(ActorChecking)
 
 }
 
-function AISpawnArrow()
-{
 
-
-
-	if(screen == 0) 
-	{
-	
-		if( enemy_x > player_x  ) 
-		{
-			spawnActor('EnemyArcherArrow', enemy_x, enemy_y+54, 1,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0 			
-		}
-		else 
-		{
-			spawnActor('EnemyArcherArrow', enemy_x, enemy_y+54, 1,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 			
-		}		
-	}
-
-}
 
 function FirstBossDeadEvent()
 {
