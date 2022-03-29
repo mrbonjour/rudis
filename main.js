@@ -318,7 +318,7 @@ class Actor
 	ActorTick()
 	{
 
-		if( DoesCollideXYWithXY(this.x, this.y, player_x, player_y, 20, 20 ) )
+		if( DoesCollideXYWithXY(this.x, this.y-54, player_x, player_y, 20, 20 ) )
 		{
 
 		    this.CollideOverlap();
@@ -326,7 +326,7 @@ class Actor
 	    }
 
 		
-		if( this.y > 215  ) 
+		if( this.y > 225  ) 
 		{ 	
 			this.ActorFeltThroughWorld();
 		}
@@ -351,13 +351,19 @@ class Actor
 	ActorFeltThroughWorld()
 	{ 
 	
-	
+	//if(this.ActorState != "Dead") 
+	//	{ 
+	//		this.ActorDie();
+	//	}
 	}
 	
 	ActorOutsideWorld()
 	{ 
 	
-	
+	if(this.ActorState != "Dead") 
+		{ 
+			this.DestroySelf();
+		}	
 	}
 
  
@@ -587,10 +593,12 @@ var gr0=getRandomInt(200);
 	{	
 		if( this.controlledactor.ActorState != "Dead" ) 
 		{
+            //this.controlledactor.y=this.controlledactor.y+54;
             if(player_x+64<this.controlledactor.x+64)
 			spawnActor('EnemyArcherArrow', this.controlledactor.x, this.controlledactor.y+54, 2,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0
             if(player_x+64>=this.controlledactor.x+64)
-			spawnActor('EnemyArcherArrow', this.controlledactor.x+64, this.controlledactor.y+54, 2,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 	
+			spawnActor('EnemyArcherArrow', this.controlledactor.x+64, this.controlledactor.y+54, 2,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 
+
 		}
 	}
   
@@ -1405,7 +1413,7 @@ ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
 
 			if( value.constructor.name  == "Pawn" )  //To know if is projectile
 			{
-			    if(true)// !bIsOnFloorAlready(value) ) 
+			    if( !bIsOnFloorAlready(value) ) 
 				{
 
 					
