@@ -497,9 +497,6 @@ class Projectile extends Actor
 	CollideOverlap()
 	{
 		
-		
-		if(!crouch)
-		{		
 			if( !protect )
 			{
 				takeDamage("Hero", 5); 
@@ -510,11 +507,6 @@ class Projectile extends Actor
 				this.DestroySelf(); 				
 			}
 
-		}
-		else
-		{
-
-		}
 
 
 	}
@@ -569,7 +561,6 @@ class AIController extends Controller
   movementtickAI()
   {
 var gr0=getRandomInt(200);
-var gr1=getRandomInt(60);
 	  if( getRandomInt(2) == 0 ) 
 	  { 
          if(this.controlledactor.x+gr0<350 )	 
@@ -597,9 +588,9 @@ var gr1=getRandomInt(60);
 		if( this.controlledactor.ActorState != "Dead" ) 
 		{
             if(player_x+64<this.controlledactor.x+64)
-			spawnActor('EnemyArcherArrow', this.controlledactor.x, this.controlledactor.y+54, 1,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0
+			spawnActor('EnemyArcherArrow', this.controlledactor.x, this.controlledactor.y+54, 2,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0
             if(player_x+64>=this.controlledactor.x+64)
-			spawnActor('EnemyArcherArrow', this.controlledactor.x+64, this.controlledactor.y+54, 1,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 	
+			spawnActor('EnemyArcherArrow', this.controlledactor.x+64, this.controlledactor.y+54, 2,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 	
 		}
 	}
   
@@ -1414,7 +1405,7 @@ ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
 
 			if( value.constructor.name  == "Pawn" )  //To know if is projectile
 			{
-			    if( !bIsOnFloorAlready(value) ) 
+			    if(true)// !bIsOnFloorAlready(value) ) 
 				{
 
 					
