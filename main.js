@@ -188,7 +188,9 @@ actorsIngame.forEach(destroyAllActors);
 			
 			if( value != null ) 
 			{
-                value.DestroySelf();	
+
+        value.ActorState = "Dead";
+		DestroySpecificActorOfTheWorld(value);
 			}
 
 
