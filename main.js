@@ -256,6 +256,10 @@ leftpressed=false;
 rightpressed=false;
 jupiterbuttonpressed=false;
 jupiterbuttonreleased=false;
+ScreenCompletedEmpty=new Array(360);
+ScreenCompletedEmpty[0] = true; 
+let actorsIngame = []; 
+
 }
 
 //Classes for actors ingame
