@@ -165,7 +165,7 @@ var jupiterbuttonpressed=false;
 var jupiterbuttonreleased=false;
 function restart()
 {
-  let actorsIngame = []; 
+//  let actorsIngame = []; 
     if( actorsIngame.indexOf(knifevar) > -1 )
 DestroySpecificActorOfTheWorld(knifevar);
     if( actorsIngame.indexOf(VictoryRudis) > -1 )
