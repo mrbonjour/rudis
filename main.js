@@ -484,7 +484,7 @@ class Projectile extends Actor
 		{		
 			if( !protect )
 			{
-				takeDamage("Hero", 10); 
+				takeDamage("Hero", 5); 
 				this.DestroySelf(); 				
 			}
 			else
@@ -1204,7 +1204,8 @@ actorsgravity();
 
     if( actorsIngame.indexOf(EnemyArcher1) > -1 || actorsIngame.indexOf(EnemyArcher2) > -1 || actorsIngame.indexOf(EnemyArcher3) > -1 ) 
         {
-if (player_x>335)player_x=335;
+if (player_x>295)player_x=295;
+if (player_x<-85)player_x=-85;
         }
     else
         {
@@ -1603,11 +1604,11 @@ if((screen==3 && player_x>=130))//rudisfreedom
 		if(screen > -1 ) 
 		{
 	    ctx.drawImage(live,0,0,1.5*heroHealth, 150,        0+10 ,0 , 1.5*heroHealth,150);
-	    ctx.drawImage(live,0,0,1.5*EnemyArcherHealth,150,   180+20,0,1.5*EnemyArcherHealth,150);
+	    //ctx.drawImage(live,0,0,1.5*EnemyArcherHealth,150,   180+20,0,1.5*EnemyArcherHealth,150);
         ctx.fillStyle = 'white';
         ctx.font = "20px arial";
         ctx.fillText("Hero", 10, 18);
-	    ctx.fillText("Boss", 305, 18);
+	    //ctx.fillText("Boss", 305, 18);
         ctx.fillText("Jupiter power:" + power_jupiter, 10, 38);
 		}
 	lastTimestamp = timestamp;	
@@ -1874,7 +1875,7 @@ function PlayerUnleashAttack( TypeOfAttack )
 	   if(run_animation_attack==0){audiosword2.play();}
        if( DoesPlayerIsInAttackProximity() )
 	   {     
-		   takeDamage("EnemyArcher", 1); 	
+		   takeDamage("EnemyArcher", 2); 	
        }
 	   
 		actorsIngame.forEach(CheckAttackForActors);
@@ -1885,7 +1886,7 @@ function PlayerUnleashAttack( TypeOfAttack )
 			{
 				if( DoesCollideXYWithXY(player_x, player_y, value.x, value.y, 10, 10)    )  //Do that Y is also a variable of proximity when colliding
 				{
-					value.ActorTakeDamage(1); 
+					value.ActorTakeDamage(2); 
 				}	
 			}
 
@@ -1917,7 +1918,7 @@ function PlayerUnleashAttack( TypeOfAttack )
 	   if(run_animation_attack==0){audiosword2.play();}
        if( DoesPlayerIsInAttackProximityInvertedOrder() )
 	   {     
-		   takeDamage("EnemyArcher", 1); 	
+		   takeDamage("EnemyArcher", 2); 	
        }
 	   
 		actorsIngame.forEach(CheckAttackForActors);
@@ -1929,7 +1930,7 @@ function PlayerUnleashAttack( TypeOfAttack )
 			{
 				if( DoesCollideXYWithXY(player_x, player_y, value.x, value.y, 10, 10)    )  //Do that Y is also a variable of proximity when colliding
 				{
-					value.ActorTakeDamage(1); 
+					value.ActorTakeDamage(2); 
 				}	
 			}
 		}		
@@ -1961,11 +1962,9 @@ return true;
 //For specific next stage to go at 
 function SetNextStage()
 {
-    //if( actorsIngame.indexOf(EnemyArcher1) > -1 && actorsIngame.indexOf(EnemyArcher2) > -1 && actorsIngame.indexOf(EnemyArcher3) > -1 ) 
-    //{
 	clearInterval(NextStageIntervalHandle); 
 	HandleNewStage(screen); 	
-	//}
+
 }
 //For specific stage to go at 
 function SetSpecificStage(NewStage)
