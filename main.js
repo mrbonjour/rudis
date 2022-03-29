@@ -165,10 +165,10 @@ var jupiterbuttonpressed=false;
 var jupiterbuttonreleased=false;
 function restart()
 {
-    if( actorsIngame.indexOf(knifevar) > -1 )
-DestroySpecificActorOfTheWorld(knifevar);
-    if( actorsIngame.indexOf(VictoryRudis) > -1 )
-DestroySpecificActorOfTheWorld(VictoryRudis);
+//    if( actorsIngame.indexOf(knifevar) > -1 )
+//DestroySpecificActorOfTheWorld(knifevar);
+//    if( actorsIngame.indexOf(VictoryRudis) > -1 )
+//DestroySpecificActorOfTheWorld(VictoryRudis);
     if( actorsIngame.indexOf(EnemyArcher1) > -1 )
     DestroySpecificActorOfTheWorld(EnemyArcher1);
     if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
