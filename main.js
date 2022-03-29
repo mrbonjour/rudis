@@ -182,6 +182,7 @@ DestroySpecificActorOfTheWorld(VictoryRudis);
     DestroySpecificActorOfTheWorld(EnemyArcher3);
     if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
     DestroySpecificActorOfTheWorld(EnemyArcher3AI);*/
+
 deltaTime = 0;
 lastTimestamp = 0;
 screen=-1;
@@ -256,8 +257,6 @@ leftpressed=false;
 rightpressed=false;
 jupiterbuttonpressed=false;
 jupiterbuttonreleased=false;
-actorsIngame = []; 
-
 }
 
 //Classes for actors ingame
@@ -1722,11 +1721,6 @@ function takeDamage(PCharacter, PDamageAmount)
 	{
 		EnemyArcherHealth = EnemyArcherHealth - PDamageAmount;
 		spawnActor('EnemyBloodParticle', enemy_x, enemy_y, 2, "blood1.png", "Particle");   //actor 0
-		
-		if(EnemyArcherHealth < 0)
-		{
-			FirstBossDeadEvent();	
-		}
         			
 	}
 	
@@ -2192,10 +2186,6 @@ function KnifeIsOnFloorAlready(ActorChecking)
 
 
 
-function FirstBossDeadEvent()
-{
-	clearInterval(ArrowSpawnerTimerHandle);
-}
 
 function returnscreensideweare(Kind, ActorAtExtreme)
 {
