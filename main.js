@@ -182,7 +182,6 @@ DestroySpecificActorOfTheWorld(VictoryRudis);
     DestroySpecificActorOfTheWorld(EnemyArcher3);
     if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
     DestroySpecificActorOfTheWorld(EnemyArcher3AI);*/
-actorsIngame.DestroySelf();
 deltaTime = 0;
 lastTimestamp = 0;
 screen=-1;
