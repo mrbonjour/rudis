@@ -34,8 +34,12 @@ var audiohup = new Audio('twink.ogg');
 var audiojump = new Audio('BonusCube.ogg');
 var jupiterloading = new Audio('jupiter_loading.wav'); 
 var freedom = new Audio('freedom.ogg'); 
-
-
+var firese = new Audio('fire_sound_effect.wav'); 
+var flame = new Audio('flame.ogg');
+var playerhurt = new Audio('playerhurt.wav') 
+var enemyhurt = new Audio('enemyhurt.wav') 
+var deathenemy = new Audio('deathenemy.wav') 
+var playerdeath = new Audio('playerdeath.wav') 
 // IMAGES
 var herofreedom=new Image();
 var heroIldeR=new Image();
@@ -294,10 +298,12 @@ class Actor
 		
 		if( this.ActorHealth <= 0 && this.ActorState == "Alive" ) 
 		{
+            deathenemy.play();
 			this.ActorDie(); 
 		}
 		
-		spawnActor('PlayerBloodParticle', this.x, this.y, 1, "blood0.png", "Particle");   //actor 0	 
+		spawnActor('PlayerBloodParticle', this.x, this.y, 1, "blood0.png", "Particle");   //actor 0	
+ enemyhurt.play();
 	}
   
 	ActorDie()
@@ -598,7 +604,7 @@ var gr0=getRandomInt(200);
 			spawnActor('EnemyArcherArrow', this.controlledactor.x, this.controlledactor.y+54, 2,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0
             if(player_x+64>=this.controlledactor.x+64)
 			spawnActor('EnemyArcherArrow', this.controlledactor.x+64, this.controlledactor.y+54, 2,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 
-
+            firese.play();
 		}
 	}
   
@@ -1713,14 +1719,16 @@ function takeDamage(PCharacter, PDamageAmount)
 	if( PCharacter == "Hero")
 	{
 		heroHealth = heroHealth - PDamageAmount;
-		spawnActor('PlayerBloodParticle', player_x, player_y, 1, "blood0.png", "Particle");   //actor 0		
+		spawnActor('PlayerBloodParticle', player_x, player_y, 1, "blood0.png", "Particle");   //actor 0
+        flame.play();
+        playerhurt.play();		
 	}		
 		
 	if( PCharacter == "EnemyArcher") 
 	{
 		EnemyArcherHealth = EnemyArcherHealth - PDamageAmount;
 		spawnActor('EnemyBloodParticle', enemy_x, enemy_y, 2, "blood1.png", "Particle");   //actor 0
-        			
+        enemyhurt.play();		        playerhurt.play();					
 	}
 	
 }
