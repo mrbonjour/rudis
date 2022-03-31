@@ -283,9 +283,15 @@ class Actor
   
 	ActorDie()
 	{
-		this.ActorSetActorState("Dead");
-		this.ChangeMainTexture("enemyDeadR.png");
-		setTimeout(this.DestroySelf.bind(this),3000.0); //Find a way to clear the timer
+        if(this.actorClass=="Projectile")
+            {
+            }
+        if(this.actorClass!="Projectile")
+            {
+		    this.ActorSetActorState("Dead");
+	    	this.ChangeMainTexture("enemyDeadR.png");
+		    setTimeout(this.DestroySelf.bind(this),3000.0); //Find a way to clear the timer
+            }
 	}
   
 	ActorSetActorState(NewActorState)
