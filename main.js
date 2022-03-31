@@ -242,7 +242,7 @@ screenarray2[100+128][200]="h";
 //Runtime actors 
 class Actor 
 {
-	constructor(name, x, y, team, mainTexture, InternalTexture, ActorHealth, ActorState, Screen ) 
+	constructor(name, x, y, team, mainTexture, InternalTexture, ActorHealth, ActorState, Screen, actorClass ) 
 	{
 
 		this.name = name;
@@ -254,7 +254,8 @@ class Actor
 		this.InternalTexture.setAttribute("src", this.mainTexture);  
 		this.ActorHealth = 100;
 		this.ActorState = "Alive"; //"Alive" is alive, "Dead" is dead
-        this.Screen=screen; 	
+        this.Screen=screen;
+ 	    this.actorClass=actorClass;
 	}
 
 	 setLocationX(px, py) 
@@ -285,13 +286,16 @@ class Actor
 	{
         if(this.actorClass=="Projectile")
             {
+		    
+		   
             }
-        if(this.actorClass!="Projectile")
+        if(this.actorClass=="Pawn")
             {
 		    this.ActorSetActorState("Dead");
 	    	this.ChangeMainTexture("enemyDeadR.png");
-		    setTimeout(this.DestroySelf.bind(this),3000.0); //Find a way to clear the timer
+		    setTimeout(this.DestroySelf.bind(this),3000); //Find a way to clear the timer
             }
+
 	}
   
 	ActorSetActorState(NewActorState)
@@ -364,16 +368,16 @@ class Actor
 
 class Pawn extends Actor 
 {
-	constructor(name, x, y, team, mainTexture, PawnController) 
+	constructor(name, x, y, team, mainTexture, PawnController, Screen, actorClass) 
 	{
-		super(name, x, y, team, mainTexture, PawnController); 
+		super(name, x, y, team, mainTexture, PawnController, Screen, actorClass ); 
 
 	}
-	
+
 	ActorTick()
 	{
 	super.ActorTick(); 
-	
+		this.actorClass="Pawn";
 	
 		if( this.PawnController && this.ActorState != "Dead" ) //Valid check here the object exists 
 		{
@@ -476,13 +480,13 @@ class Particle extends Actor
 
 class Projectile extends Actor 
 {
-	constructor(name, x, y, team, mainTexture, TimeAlive, ProjectileInitSpeedX, ProjectileInitSpeedY) 
+	constructor(name, x, y, team, mainTexture, TimeAlive, ProjectileInitSpeedX, ProjectileInitSpeedY, Screen, actorClass) 
 	{
-		super(name, x, y, team, mainTexture);
+		super(name, x, y, team, mainTexture, Screen, actorClass );
 		this.TimeAlive = TimeAlive;  
 		this.ProjectileInitSpeedX = ProjectileInitSpeedX; 
 		this.ProjectileInitSpeedY = ProjectileInitSpeedY; 
-
+        this.actorClass="Projectile";
 		
 	}
   
@@ -602,48 +606,48 @@ function spawnActor(name, x,y, team, mainTexture, actorClass, ControlledActor, L
 
     if( actorClass == "Actor")
 	{
-	    actorsIngame.push(new Actor(name, x, y, team, mainTexture)); 
+	    actorsIngame.push(new Actor(name, x, y, team, mainTexture, Screen, actorClass )); 
 	}
 
     if( actorClass == "Controller")
 	{
-	    actorsIngame.push(new Controller(name, x, y, team, mainTexture)); //TO FIX
+	    actorsIngame.push(new Controller(name, x, y, team, mainTexture, Screen, actorClass)); //TO FIX
 	}
 
 
     if( actorClass == "AIController")
 	{
-	    actorsIngame.push(new AIController(name, x, y, team, mainTexture, ControlledActor)); 
+	    actorsIngame.push(new AIController(name, x, y, team, mainTexture, ControlledActor, Screen, actorClass)); 
 	}
 
     if( actorClass == "Particle")
 	{																   //500 is miliseconds
-	    actorsIngame.push(new Particle(name, x, y, team, mainTexture, 500 ) ); //Becareful miliseconds
+	    actorsIngame.push(new Particle(name, x, y, team, mainTexture, Screen, actorClass, 500 ) ); //Becareful miliseconds
 	}
 
 	if( actorClass == "Projectile" )
 	{
-	    actorsIngame.push(new Projectile(name, x, y, team, mainTexture, 500, ActorInitialSpeedX, 0 ) ); //Becareful miliseconds			
+	    actorsIngame.push(new Projectile(name, x, y, team, mainTexture, 500, ActorInitialSpeedX, 0 , Screen, actorClass) ); //Becareful miliseconds			
 	}
 
 	if( actorClass == "Pawn" )
 	{
-	    actorsIngame.push(new Pawn(name, x, y, team, mainTexture ) ); //Becareful miliseconds			
+	    actorsIngame.push(new Pawn(name, x, y, team, mainTexture, Screen, actorClass ) ); //Becareful miliseconds			
 	}
 
 	if( actorClass == "Pickup" )
 	{
-	    actorsIngame.push(new Pickup(name, x, y, team, mainTexture ) ); //Becareful miliseconds			
+	    actorsIngame.push(new Pickup(name, x, y, team, mainTexture, Screen, actorClass ) ); //Becareful miliseconds			
 	}
 
 	if( actorClass == "Rudis" )
 	{
-	    actorsIngame.push(new Rudis(name, x, y, team, mainTexture ) ); //Becareful miliseconds			
+	    actorsIngame.push(new Rudis(name, x, y, team, mainTexture, Screen, actorClass ) ); //Becareful miliseconds			
 	}
 
 	if( actorClass == "Knife" )
 	{
-	    actorsIngame.push(new Knife(name, x, y, team, mainTexture ) ); //Becareful miliseconds			
+	    actorsIngame.push(new Knife(name, x, y, team, mainTexture, Screen, actorClass ) ); //Becareful miliseconds			
 	}
 
 
