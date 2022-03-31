@@ -169,7 +169,7 @@ var jupiterbuttonpressed=false;
 var jupiterbuttonreleased=false;
 function reset()
 {
-actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
+//actorsIngame.forEach(function(value, index, array){if(1){value.ActorDie();value.DestroySelf(value);}});
 deltaTime = 0;
 lastTimestamp = 0;
 screen=-1;
@@ -293,7 +293,7 @@ class Actor
 	{
 		this.ActorSetActorState("Dead");
 		this.ChangeMainTexture("enemyDeadR.png");
-		setInterval(this.DestroySelf.bind(this),3000.0); //Find a way to clear the timer
+		setTimeout(this.DestroySelf.bind(this),3000.0); //Find a way to clear the timer
 	}
   
 	ActorSetActorState(NewActorState)
@@ -1193,8 +1193,8 @@ function draw(timestamp)
     deltaTime = (timestamp - lastTimestamp) / perfectFrameTime;
 
 
-	if (heroHealth<=0){actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf.bind(value)}});gameover=true;screen=-1}
-    if (player_y>340){actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf.bind(value)}});gameover=true;screen=-1}
+	if (heroHealth<=0){actorsIngame.forEach(function(value, index, array){if(1){value.ActorDie();value.DestroySelf.bind(value)}});gameover=true;screen=-1}
+    if (player_y>340){actorsIngame.forEach(function(value, index, array){if(1){value.ActorDie();value.DestroySelf.bind(value)}});gameover=true;screen=-1}
     if (EnemyArcherHealth<=0 && screen==1)     
         {
 		if( NextStageIntervalHandle == null )
@@ -1979,6 +1979,7 @@ function HandleNewStage(NewStage)
 
 	if( NewStage == -0.5 ) 
 	{
+actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
     DestroySpecificActorOfTheWorld(VictoryRudis);
     if( actorsIngame.indexOf(EnemyArcher1) > -1 )
     DestroySpecificActorOfTheWorld(EnemyArcher1);
