@@ -78,17 +78,6 @@ var blood=new Image();
 var torch=new Image();
 var rudis=new Image();
 
-
-
-
-
-var fletxaL=new Image();
-var fletxaR=new Image();
-
-
-
-
-
 // PRELOAD IMAGES
 addLoadEvent(preloader);
 //VARS
@@ -244,6 +233,8 @@ leftpressed=false;
 rightpressed=false;
 jupiterbuttonpressed=false;
 jupiterbuttonreleased=false;
+screenarray3[40+128][280]="h";
+screenarray2[100+128][200]="h";
 }
 
 //Classes for actors ingame
@@ -1324,7 +1315,7 @@ ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
 			for (var i=0;i<360;i++) 
 			{
 				if (screenarray2[j][i]=="p"){ctx.fillStyle = 'brown';ctx.fillRect(i,j,1,10);}
-				if (screenarray2[j][i]=="h" && botiquin0_agafat==false){ctx.drawImage(healthimage,0,0,20,20,i,j,20,20);}
+				if (screenarray2[j][i]=="h" && botiquin0_agafat==false){ctx.drawImage(healthimage,0,0,20,20,i+35,j,20,20);}
 			}
 		}   	
 	    if (player_x+64>90+128 && player_y+128>=240 && player_y+128<260 && botiquin0_agafat==false){audiohup.play();heroHealth=100;screenarray2[100+128][200]=".";botiquin0_agafat=true}
@@ -1339,7 +1330,7 @@ ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
 			for (var i=0;i<360;i++) 
 			{
 				if (screenarray3[j][i]=="p"){ctx.fillStyle = 'brown';ctx.fillRect(i,j,1,10);}
-				if (screenarray3[j][i]=="h"&& botiquin1_agafat==false){ctx.drawImage(healthimage,0,0,20,20,i,j,20,20);}
+				if (screenarray3[j][i]=="h"&& botiquin1_agafat==false){ctx.drawImage(healthimage,0,0,20,20,i+35,j,20,20);}
 				
 			}
 		} 
