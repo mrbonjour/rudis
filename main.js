@@ -77,8 +77,8 @@ var healthimage=new Image();
 var blood=new Image();
 var torch=new Image();
 var rudis=new Image();
-var fletxa_l=new Image();
-var fletxa_r=new Image();
+var fletxaR=new Image();
+var fletxaL=new Image();
 // PRELOAD IMAGES
 addLoadEvent(preloader);
 //VARS
