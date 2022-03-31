@@ -38,8 +38,8 @@ var firese = new Audio('fire_sound_effect.wav');
 var flame = new Audio('flame.ogg');
 var playerhurt = new Audio('playerhurt.wav') 
 var enemyhurt = new Audio('enemyhurt.wav') 
-var deathenemy = new Audio('deathenemy.wav') 
-var playerdeath = new Audio('playerdeath.wav') 
+var deathenemy = new Audio('deathenemy.ogg') 
+var playerdeath = new Audio('playerdeath.ogg') 
 // IMAGES
 var herofreedom=new Image();
 var heroIldeR=new Image();
@@ -123,7 +123,7 @@ var arrow_x=enemy_x+64;
 var arrow_y=enemy_y+64;
 var heroHealth=100; 
 var EnemyArcherHealth=100;
-var gameover=false;
+var gameover=true;
 var jumping=false;
 var to_left=false;
 var counterforjump=0;
@@ -167,26 +167,9 @@ var leftpressed=false;
 var rightpressed=false;
 var jupiterbuttonpressed=false;
 var jupiterbuttonreleased=false;
-function restart()
+function reset()
 {
-/*  let actorsIngame = []; 
-    if( actorsIngame.indexOf(knifevar) > -1 )
-DestroySpecificActorOfTheWorld(knifevar);
-    if( actorsIngame.indexOf(VictoryRudis) > -1 )
-DestroySpecificActorOfTheWorld(VictoryRudis);
-    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1);
-    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
-	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2);
-	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
-    if(actorsIngame.indexOf(EnemyArcher3) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3);
-    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3AI);*/
-actorsIngame.forEach(function(value, index, array){value.DestroySelf.bind(value)});
+actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf.bind(value)}});
 deltaTime = 0;
 lastTimestamp = 0;
 screen=-1;
@@ -217,7 +200,7 @@ arrow_x=enemy_x+64;
 arrow_y=enemy_y+64;
 heroHealth=100; 
 EnemyArcherHealth=100;
-gameover=false;
+gameover=true;
 jumping=false;
 to_left=false;
 counterforjump=0;
@@ -597,7 +580,7 @@ var gr0=getRandomInt(200);
   
 	if( this.controlledactor != null )
 	{	
-		if( this.controlledactor.ActorState != "Dead" ) 
+		if( this.controlledactor.ActorState != "Dead" && gameover==false) 
 		{
             //this.controlledactor.y=this.controlledactor.y+54;
             if(player_x+64<this.controlledactor.x+64)
@@ -1133,17 +1116,14 @@ function checkKeyDown(e)
 		
 		
 		
-    if (e.keyCode == '13' && gameover==false  && screen==-1) //enter
+    if (e.keyCode == '13' && gameover==true  && screen==-1) //enter
         {
-        restart();
+        reset();
+        gameover=false;
+        screen=-0.5;
         SetSpecificStage(-0.5);
+
         }
-    
-if (e.keyCode == '13' && gameover==true && screen==-2) //enter
-        {
-        restart();
-        }
-    
     }
 document.onkeyup = checkKeyUp;
 //ON RELASE
@@ -1203,7 +1183,8 @@ function draw(timestamp)
     deltaTime = (timestamp - lastTimestamp) / perfectFrameTime;
 
 
-	if (heroHealth<=0){gameover=true;screen=-2}	
+	if (heroHealth<=0){actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf.bind(value)}});gameover=true;screen=-1}
+    if (player_y>340){actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf.bind(value)}});gameover=true;screen=-1}
     if (EnemyArcherHealth<=0 && screen==1)     
         {
 		if( NextStageIntervalHandle == null )
@@ -1256,25 +1237,7 @@ if (player_x<-85)player_x=-85;
     
     
     //pantalles
-    if(screen==-2)
-        {
-     for (i=0;i<4;i++)
-        {
-        for(j=0;j<4;j++)
-            {
-            ctx.drawImage(wall,0,0,500,500,0*i,0*j,90,90);
-            ctx.drawImage(wall,0,0,500,500,90*i,0*j,90,90);
-            ctx.drawImage(wall,0,0,500,500,0*i,90*j,90,90);
-            ctx.drawImage(wall,0,0,500,500,90*i,90*j,90,90);
-            }
-        }
 
-        ctx.fillStyle = 'white';
-        ctx.font = "30px arial";
-        ctx.fillText("Game over", 10, 160);
-        ctx.fillText("Press enter to start", 10, 345);
-        
-        }
     if(screen==-1)
         {
      for (i=0;i<4;i++)
@@ -2270,17 +2233,6 @@ function IsPointOutsideWorld(OutX, OutY)
 	}
 } 
 
-var canvasrestart = document.getElementById('buttonrestart');
-if (canvasrestart.getContext) 
-    {
-    var ctxrestart = canvasrestart.getContext('2d');
-    canvas
-    ctxrestart.beginPath();
-    ctxrestart.fillStyle = 'black';
-    ctxrestart.font = "22px arial";
-    ctxrestart.fillText("Reset Game" , 108, 23);
-
-    }
 var canvasleft = document.getElementById('buttonleft');
 if (canvasleft.getContext) 
     {

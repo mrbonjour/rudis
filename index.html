@@ -18,39 +18,35 @@ Your web browser does not support canvas.
 </canvas>
 </div>
 <div id="buttons">
-<button class='restartbutton' ontouchstart='restart();' onclick='' style='position:absolute; top:365px; left: 0px; width:360px; height: 40px; background-color:red; color:white; '>
-<canvas class="buttonrestart"id="buttonrestart" width="360" height="40">
-</canvas>
-</button>
-<button class='enterbutton' ontouchstart='if(screen==-1){SetSpecificStage(-0.5);}' ontouchend='' style='position:absolute; top:495px; left: 90px; width:90px; height: 90px; background-color:blue; '>
+<button class='enterbutton' ontouchstart='if (gameover==true  && screen==-1){reset();gameover=false;screen=-0.5;SetSpecificStage(-0.5)' ontouchend='' style='position:absolute; top:365px; left: 270px; width:90px; height: 90px; background-color:blue; '>
 <canvas class="buttonenter"id="buttonenter" width="90" height="90">
 </canvas>
 </button>
-<button class='zbutton' ontouchstart='zpressed=true;buttonz();' ontouchend='buttonzn();' style='position:absolute; top:405px; left: 90px; width:90px; height: 90px; background-color:purple; '>
+<button class='zbutton' ontouchstart='zpressed=true;buttonz();' ontouchend='buttonzn();' style='position:absolute; top:365px; left: 180px; width:90px; height: 90px; background-color:purple; '>
 <canvas class="buttonz"id="buttonz" width="90" height="90">
 </canvas>
 </button>
-<button class='xbutton' ontouchstart='jupiterbuttonpressed=true;buttonx();' ontouchend='jupiterbuttonreleased=true;buttonxn();' style='position:absolute; top:405px; left: 180px; width:90px; height: 90px; background-color:purple; '>
+<button class='xbutton' ontouchstart='jupiterbuttonpressed=true;buttonx();' ontouchend='jupiterbuttonreleased=true;buttonxn();' style='position:absolute; top:365px; left: 90px; width:90px; height: 90px; background-color:purple; '>
 <canvas class="buttonx"id="buttonx" width="90" height="90">
 </canvas>
 </button>
-<button class='cbutton' ontouchstart='protect=true;' ontouchend='protect=false;' style='position:absolute; top:405px; left: 270px; width:90px; height: 90px; background-color:orange; '>
+<button class='cbutton' ontouchstart='protect=true;' ontouchend='protect=false;' style='position:absolute; top:455px; left: 270px; width:90px; height: 90px; background-color:orange; '>
 <canvas class="buttonc"id="buttonc" width="90" height="90">
 </canvas>
 </button>
-<button class='upbutton' ontouchstart='buttonup();' ontouchend='buttonupn();' style='position:absolute; top:405px;left: 0px; width:90px; height: 90px; background-color:black; '>
+<button class='upbutton' ontouchstart='buttonup();' ontouchend='buttonupn();' style='position:absolute; top:365px;left: 0px; width:90px; height: 90px; background-color:black; '>
 <canvas class="buttonup"id="buttonup" width="90" height="90">
 </canvas>
 </button>
-<button class='downbutton' ontouchstart='buttondown();' ontouchend='buttondownn();' style='position:absolute; top:495px;  left: 0px; width:90px; height: 90px; background-color:black; '>
+<button class='downbutton' ontouchstart='buttondown();' ontouchend='buttondownn();' style='position:absolute; top:455px;  left: 180px; width:90px; height: 90px; background-color:black; '>
 <canvas class="buttondown"id="buttondown" width="90" height="90">
 </canvas>
 </button>
-<button class='leftbutton' ontouchstart='leftpressed=true;buttonleft();' ontouchend='leftpressed=false;buttonleftn();' style='position:absolute; top:495px; left: 180px; width:90px; height: 90px;background-color:black;'>
+<button class='leftbutton' ontouchstart='leftpressed=true;buttonleft();' ontouchend='leftpressed=false;buttonleftn();' style='position:absolute; top:455px; left: 0px; width:90px; height: 90px;background-color:black;'>
 <canvas class="buttonleft"id="buttonleft" width="90" height="90">
 </canvas>
 </button>
-<button class='rightbutton' ontouchstart='rightpressed=true;buttonright();' ontouchend='rightpressed=false;buttonrightn();' style='position:absolute; top:495px; left: 270px; width:90px; height: 90px;background-color:black;'>
+<button class='rightbutton' ontouchstart='rightpressed=true;buttonright();' ontouchend='rightpressed=false;buttonrightn();' style='position:absolute; top:455px; left: 90px; width:90px; height: 90px;background-color:black;'>
 <canvas class="buttonright"id="buttonright" width="90" height="90">
 </canvas>
 </button>
