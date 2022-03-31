@@ -77,7 +77,8 @@ var healthimage=new Image();
 var blood=new Image();
 var torch=new Image();
 var rudis=new Image();
-
+var fletxa_l=new Image();
+var fletxa_r=new Image();
 // PRELOAD IMAGES
 addLoadEvent(preloader);
 //VARS
@@ -241,7 +242,7 @@ screenarray2[100+128][200]="h";
 //Runtime actors 
 class Actor 
 {
-	constructor(name, x, y, team, mainTexture, InternalTexture, ActorHealth, ActorState ) 
+	constructor(name, x, y, team, mainTexture, InternalTexture, ActorHealth, ActorState, Screen ) 
 	{
 
 		this.name = name;
@@ -251,9 +252,9 @@ class Actor
 		this.mainTexture = mainTexture;//"BloodForWebGladiators1.png"; 
 		this.InternalTexture=new Image();
 		this.InternalTexture.setAttribute("src", this.mainTexture);  
-		this.ActorHealth = 100; 	
+		this.ActorHealth = 100;
 		this.ActorState = "Alive"; //"Alive" is alive, "Dead" is dead
-
+        this.Screen=screen; 	
 	}
 
 	 setLocationX(px, py) 
@@ -1375,11 +1376,13 @@ ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
 	{
 	
 		actorsIngame.forEach(DrawActors);
-		function DrawActors(value, index, array) 
+		function DrawActors(value, index, array, Screen) 
 		{
+          if (screen==value.Screen)
+            {
 			ctx.drawImage(value.InternalTexture,0,0,128,128,value.x,value.y,128,128);
 			value.ActorTick();
-			
+			}
 
 			if( value.constructor.name  == "Pawn" )  //To know if is projectile
 			{
@@ -1987,7 +1990,7 @@ actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value
 
 		Knifevar=spawnActor('Knife', 175, 0, 2, "Knife.png","Knife" );
   		Archer1actor_y = 0;
-		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 280, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 1
+		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 280, 0, 2, "enemyR.png", "Pawn", -0,5);   //Enemy archer 1
 		EnemyArcher1AI = spawnActor('EnemyArcherAIController1', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher1);   //AIController evil of archer
 		EnemyArcher1AI.DesiredLocToGoX = EnemyArcher1.x; EnemyArcher1AI.DesiredLocToGoY = EnemyArcher1.y; 
 		EnemyArcher1.PawnController = EnemyArcher1AI; 
@@ -2011,12 +2014,12 @@ DestroySpecificActorOfTheWorld(Knifevar);
     DestroySpecificActorOfTheWorld(EnemyArcher3AI);
 		Archer1actor_y = 0;
  			Archer2actor_y = 0;
-		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 1
+		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyR.png", "Pawn",0);   //Enemy archer 1
 		EnemyArcher1AI = spawnActor('EnemyArcherAIController1', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher1);   //AIController evil of archer
 		EnemyArcher1AI.DesiredLocToGoX = EnemyArcher1.x; EnemyArcher1AI.DesiredLocToGoY = EnemyArcher1.y; 
 		EnemyArcher1.PawnController = EnemyArcher1AI;  
     Archer1actor_x=EnemyArcher1.x; 
-		EnemyArcher2 = spawnActor('EnemyArcherExtra2', 60, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 2 
+		EnemyArcher2 = spawnActor('EnemyArcherExtra2', 60, 0, 2, "enemyR.png", "Pawn",0);   //Enemy archer 2 
 		EnemyArcher2AI = spawnActor('EnemyArcherAIController2', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher2);   //AIController evil of archer		
 		EnemyArcher2AI.DesiredLocToGoX = EnemyArcher2.x; EnemyArcher2AI.DesiredLocToGoY = EnemyArcher2.y; 		
 		EnemyArcher2.PawnController = EnemyArcher2AI;  		
@@ -2042,17 +2045,17 @@ DestroySpecificActorOfTheWorld(Knifevar);
 		Archer1actor_y = 0;
  			Archer2actor_y = 0;
 			Archer3actor_y = 0;
-		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 1
+		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyR.png", "Pawn",1);   //Enemy archer 1
 		EnemyArcher1AI = spawnActor('EnemyArcherAIController1', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher1);   //AIController evil of archer
 		EnemyArcher1AI.DesiredLocToGoX = EnemyArcher1.x; EnemyArcher1AI.DesiredLocToGoY = EnemyArcher1.y; 
 		EnemyArcher1.PawnController = EnemyArcher1AI;  
     Archer1actor_x=EnemyArcher1.x; 
-		EnemyArcher2 = spawnActor('EnemyArcherExtra2', 60, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 2 
+		EnemyArcher2 = spawnActor('EnemyArcherExtra2', 60, 0, 2, "enemyR.png", "Pawn",1);   //Enemy archer 2 
 		EnemyArcher2AI = spawnActor('EnemyArcherAIController2', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher2);   //AIController evil of archer		
 		EnemyArcher2AI.DesiredLocToGoX = EnemyArcher2.x; EnemyArcher2AI.DesiredLocToGoY = EnemyArcher2.y; 		
 		EnemyArcher2.PawnController = EnemyArcher2AI;  		
 		    Archer2actor_x=EnemyArcher2.x; 
-		EnemyArcher3 = spawnActor('EnemyArcherExtra3', 70, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 3 	
+		EnemyArcher3 = spawnActor('EnemyArcherExtra3', 70, 0, 2, "enemyR.png", "Pawn"),1;   //Enemy archer 3 	
 		EnemyArcher3AI = spawnActor('EnemyArcherAIController3', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher3);   //AIController evil of archer	
 		EnemyArcher3AI.DesiredLocToGoX = EnemyArcher3.x; EnemyArcher3AI.DesiredLocToGoY = EnemyArcher3.y; 		
 		EnemyArcher3.PawnController = EnemyArcher3AI; 
@@ -2079,17 +2082,17 @@ DestroySpecificActorOfTheWorld(Knifevar);
 			Archer1actor_y = 0;
  			Archer2actor_y = 0;
 			Archer3actor_y = 0;
-		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 1
+		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyR.png", "Pawn",2);   //Enemy archer 1
 		EnemyArcher1AI = spawnActor('EnemyArcherAIController1', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher1);   //AIController evil of archer
 		EnemyArcher1AI.DesiredLocToGoX = EnemyArcher1.x; EnemyArcher1AI.DesiredLocToGoY = EnemyArcher1.y; 
 		EnemyArcher1.PawnController = EnemyArcher1AI;  
     Archer1actor_x=EnemyArcher1.x; 
-		EnemyArcher2 = spawnActor('EnemyArcherExtra2', 60, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 2 
+		EnemyArcher2 = spawnActor('EnemyArcherExtra2', 60, 0, 2, "enemyR.png", "Pawn",2);   //Enemy archer 2 
 		EnemyArcher2AI = spawnActor('EnemyArcherAIController2', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher2);   //AIController evil of archer		
 		EnemyArcher2AI.DesiredLocToGoX = EnemyArcher2.x; EnemyArcher2AI.DesiredLocToGoY = EnemyArcher2.y; 		
 		EnemyArcher2.PawnController = EnemyArcher2AI;  		
 		    Archer2actor_x=EnemyArcher2.x; 
-		EnemyArcher3 = spawnActor('EnemyArcherExtra3', 70, 0, 2, "enemyR.png", "Pawn");   //Enemy archer 3 	
+		EnemyArcher3 = spawnActor('EnemyArcherExtra3', 70, 0, 2, "enemyR.png", "Pawn",2);   //Enemy archer 3 	
 		EnemyArcher3AI = spawnActor('EnemyArcherAIController3', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher3);   //AIController evil of archer	
 		EnemyArcher3AI.DesiredLocToGoX = EnemyArcher3.x; EnemyArcher3AI.DesiredLocToGoY = EnemyArcher3.y; 		
 		EnemyArcher3.PawnController = EnemyArcher3AI; 
