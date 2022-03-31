@@ -169,7 +169,7 @@ var jupiterbuttonpressed=false;
 var jupiterbuttonreleased=false;
 function reset()
 {
-actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf.bind(value)}});
+actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
 deltaTime = 0;
 lastTimestamp = 0;
 screen=-1;
@@ -1037,7 +1037,17 @@ function buttondownn()
 
         }
 
+function buttonenter()
+        {
+        if (gameover==true  && screen==-1) //enter
+            {
+            reset();
+            gameover=false;
+            screen=-0.5;
+            SetSpecificStage(-0.5);
 
+            }
+        }
 
 
 
@@ -2232,6 +2242,7 @@ function IsPointOutsideWorld(OutX, OutY)
         return false;	
 	}
 } 
+
 
 var canvasleft = document.getElementById('buttonleft');
 if (canvasleft.getContext) 
