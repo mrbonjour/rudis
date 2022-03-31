@@ -249,7 +249,7 @@ class Actor
 		this.x = x; 
 		this.y = y;
 		this.team = team; //Team 1 Players/hero  Team 2 Enemies
-		this.mainTexture = mainTexture;//"BloodForWebGladiators1.png"; 
+		this.mainTexture = mainTexture;
 		this.InternalTexture=new Image();
 		this.InternalTexture.setAttribute("src", this.mainTexture);  
 		this.ActorHealth = 100;
@@ -278,7 +278,7 @@ class Actor
 			this.ActorDie(); 
 		}
 		
-		spawnActor('PlayerBloodParticle', this.x, this.y, 1, "blood0.png", "Particle");   //actor 0	
+		spawnActor('ActorBloodParticle', this.x, this.y, 1, "blood1.png", "Particle");   //actor 0	
  enemyhurt.play();
 	}
   
@@ -342,10 +342,8 @@ class Actor
 	ActorFeltThroughWorld()
 	{ 
 	
-	//if(this.ActorState != "Dead") 
-	//	{ 
-	//		this.ActorDie();
-	//	}
+
+
 	}
 	
 	ActorOutsideWorld()
@@ -466,8 +464,8 @@ class Particle extends Actor
 	constructor(name, x, y, team, mainTexture, TimeAlive) 
 	{
 		super(name, x, y, team, mainTexture);
-		this.TimeAlive = TimeAlive;  
-		setInterval(this.DestroySelf.bind(this),this.TimeAlive); //Set a timer latent true
+		this.TimeAlive = 500;  
+		setTimeout(this.DestroySelf.bind(this),this.TimeAlive); //Set a timer latent true
 	}
 	
 	ActorTakeDamage(DamageAmount)
@@ -654,11 +652,6 @@ function spawnActor(name, x,y, team, mainTexture, actorClass, ControlledActor, L
 	return actorsIngame[actorsIngame.length-1]; 
 }
 
-
-function Intervalterminate()
-{
-	DestroySpecificActorOfTheWorld(BloodParticoolObject); 
-}
 
 
 function DestroySpecificActorOfTheWorld(ActorToBeDestroyed) 
@@ -1698,7 +1691,7 @@ function takeDamage(PCharacter, PDamageAmount)
 	{
 		EnemyArcherHealth = EnemyArcherHealth - PDamageAmount;
 		spawnActor('EnemyBloodParticle', enemy_x, enemy_y, 2, "blood1.png", "Particle");   //actor 0
-        enemyhurt.play();		        playerhurt.play();					
+        enemyhurt.play();		        deathenemy.play();					
 	}
 	
 }
