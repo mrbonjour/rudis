@@ -716,13 +716,6 @@ function preloader()
         wall.setAttribute("src", "DesolatedHut.png");
         torch.setAttribute("src", "Torch_Sheet.png");
 		live.setAttribute("src", "live.png");
-
-
-
-
-
-
-
         fletxaL.setAttribute("src", "fireL.png");
         fletxaR.setAttribute("src", "fireR.png");
 
