@@ -990,7 +990,7 @@ function buttonleft()
         //if(run_animation_left==2){run_animation_left=0;}else{run_animation_left++;}
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_left=0;}else{run_animation_left=1}
             }
-        else if(screen==3 && player_x>=130) {player_x=130;go_left=false;leftpressed=false;velocity_left=0;}
+        else if(screen==3 && player_x>=130) {player_x=130;go_left=false;leftpressed=false;velocity_left=0;velocity_left=-1;}
 
         if((screen>=4 && screen<9) || (screen==9 && player_x<130))//rudis freedom screen 9
             {
@@ -1021,7 +1021,7 @@ if (gameover==false)
         go_left=false;go_right=true;crouch=false;attack=false;go_left=false; velocity_right=1; velocity_left=0; velocity_attack=0;to_left=false;
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_right=0;}else{run_animation_right=1}
             }
-          else if(screen==3 && player_x>=130) { player_x=130;go_right=false;rightpressed=false;velocity_right=0;}
+          else if(screen==3 && player_x>=130) { player_x=130;go_right=false;rightpressed=false;velocity_right=-1;to_right=false}
          if ((screen>=4 && screen<9) || (screen==9 && player_x<130))//rudis freedom screen 9
             { 
         go_left=false;go_right=true;crouch=false;attack=false;go_left=false; velocity_right=1; velocity_left=0; velocity_attack=0;to_left=false;
