@@ -985,7 +985,7 @@ function buttonleft()
         {if (gameover==false){
            if(screen<3 || (screen==3 && player_x<130))//rudis freedom
             {
-        go_left=true;crouch=false;attack=false;go_right=false;velocity_right=0; velocity_left=1; velocity_attack=0;to_left=true;
+        go_left=true;crouch=false;attack=false;go_right=false;velocity_right=0; velocity_left=1; velocity_attack=0;to_left=true;leftpressed=true;
         //if(run_animation_left==2){run_animation_left=0;}else{run_animation_left++;}
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_left=0;}else{run_animation_left=1}
             }
@@ -1015,7 +1015,7 @@ function buttonright()
         {if (gameover==false){
           if(screen<3 || (screen==3 && player_x<130))//rudis freedom
             { 
-        go_left=false;go_right=true;crouch=false;attack=false;go_left=false; velocity_right=1; velocity_left=0; velocity_attack=0;to_left=false;
+        go_left=false;go_right=true;crouch=false;attack=false;go_left=false; velocity_right=1; velocity_left=0; velocity_attack=0;to_left=false;rightpressed=true;
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_right=0;}else{run_animation_right=1}
             }
           else if(screen==3 && player_x>=130) { player_x=130;go_right=false;rightpressed=false;velocity_right=0;}
