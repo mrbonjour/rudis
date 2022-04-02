@@ -997,13 +997,13 @@ function buttonleft()
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_left=0;}else{run_animation_left=1}
             }
            else if(screen==9 && player_x>=130){player_x=130;go_left=false;velocity_left=-1;to_left=false;leftpressed=false;}
- }
+
 
     if(leftpressed==true)
         {
         window.setTimeout(buttonleft,20);
         }
-
+ }
         }
 function buttonleftn()
         {
@@ -1026,12 +1026,12 @@ function buttonright()
             }
 
           else if(screen==9 && player_x>=130) {player_x=130;go_right=false;velocity_right=-1;to_right=false;rightpressed=false}
- }
+
     if(rightpressed==true)
         {
         window.setTimeout(buttonright,20);
         }
-
+ }
         }
 function buttonrightn()
         {
