@@ -25,9 +25,15 @@
         */
 
 // audio
-var audiobg = new Audio('mega.ogg');
+var audiobg = new Audio('fight.wav');
 audiobg.play(); 
 audiobg.loop = true; 
+var audiobg0 = new Audio('mega.ogg');
+var audiobg1 = new Audio('Evil_boss.ogg');
+var audiobg2 = new Audio('final_bell.ogg');
+var audiobg3 = new Audio('kuno_boss.ogg');
+var audiobg5 = new Audio('lsc_boss.ogg');
+var audiobg4 = new Audio('lsc_title.ogg');
 var audiosword = new Audio('sword.ogg');
 var audiosword2 = new Audio('sword2.ogg'); 
 var audiohup = new Audio('twink.ogg');
@@ -73,6 +79,8 @@ var live=new Image();
 var rudiskeyboard=new Image();
 var bloodRudis=new Image();
 var wall=new Image();
+var wall1=new Image();
+var wall2=new Image();
 var healthimage=new Image();
 var blood=new Image();
 var torch=new Image();
@@ -492,9 +500,10 @@ class Projectile extends Actor
 	CollideOverlap()
 	{
 		
-			if( !protect )
+			if( !protect && screen<4)
 			{
-				takeDamage("Hero", 5); 
+                
+				takeDamage("Hero", 2); 
 				this.DestroySelf(); 				
 			}
 			else
@@ -502,7 +511,16 @@ class Projectile extends Actor
 				this.DestroySelf(); 				
 			}
 
-
+			if( !protect && screen>=4 && screen<10)
+			{
+                
+				takeDamage("Hero", 4); 
+				this.DestroySelf(); 				
+			}
+			else
+			{
+				this.DestroySelf(); 				
+			}
 
 	}
  
@@ -717,6 +735,8 @@ function preloader()
         healthimage.setAttribute("src", "health.png");
         blood.setAttribute("src", "blood0.png");
         wall.setAttribute("src", "DesolatedHut.png");
+        wall1.setAttribute("src", "ReflectingTheLava.png");
+        wall2.setAttribute("src", "ColdDungeon.png");
         torch.setAttribute("src", "Torch_Sheet.png");
 		live.setAttribute("src", "live.png");
         fletxaL.setAttribute("src", "fireL.png");
@@ -962,19 +982,28 @@ zpressed=false;
 
 
 function buttonleft()
-        {
+        {if (gameover==false){
            if(screen<3 || (screen==3 && player_x<130))//rudis freedom
             {
         go_left=true;crouch=false;attack=false;go_right=false;velocity_right=0; velocity_left=1; velocity_attack=0;to_left=true;
         //if(run_animation_left==2){run_animation_left=0;}else{run_animation_left++;}
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_left=0;}else{run_animation_left=1}
             }
-        else{player_x=130;go_left=false;leftpressed=false;velocity_left=0;}
+        else if(screen==3 && player_x>=130) {player_x=130;go_left=false;leftpressed=false;velocity_left=0;}
+
+        if((screen>=4 && screen<9) || (screen==9 && player_x<130))//rudis freedom screen 9
+            {
+        go_left=true;crouch=false;attack=false;go_right=false;velocity_right=0; velocity_left=1; velocity_attack=0;to_left=true;leftpressed=true;
+        if(Math.trunc(lastTimestamp/100) % 2){run_animation_left=0;}else{run_animation_left=1}
+            }
+           else if(screen==9 && player_x>=130){player_x=130;go_left=false;velocity_left=-1;to_left=false;leftpressed=false;}
+
+
     if(leftpressed==true)
         {
         window.setTimeout(buttonleft,20);
         }
-
+ }
         }
 function buttonleftn()
         {
@@ -983,19 +1012,25 @@ function buttonleftn()
         velocity_left=0;
         }
 function buttonright()
-        {
+        {if (gameover==false){
           if(screen<3 || (screen==3 && player_x<130))//rudis freedom
             { 
         go_left=false;go_right=true;crouch=false;attack=false;go_left=false; velocity_right=1; velocity_left=0; velocity_attack=0;to_left=false;
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_right=0;}else{run_animation_right=1}
             }
-          else{ player_x=130;go_right=false;rightpressed=false;velocity_right=0;}
+          else if(screen==3 && player_x>=130) { player_x=130;go_right=false;rightpressed=false;velocity_right=0;}
+         if ((screen>=4 && screen<9) || (screen==9 && player_x<130))//rudis freedom screen 9
+            { 
+        go_left=false;go_right=true;crouch=false;attack=false;go_left=false; velocity_right=1; velocity_left=0; velocity_attack=0;to_left=false;rightpressed=true;
+        if(Math.trunc(lastTimestamp/100) % 2){run_animation_right=0;}else{run_animation_right=1}
+            }
 
+          else if(screen==9 && player_x>=130) {player_x=130;go_right=false;velocity_right=-1;to_right=false;rightpressed=false}
     if(rightpressed==true)
         {
         window.setTimeout(buttonright,20);
         }
-
+ }
         }
 function buttonrightn()
         {
@@ -1005,20 +1040,20 @@ function buttonrightn()
 
         }
 function buttonup()
-        {
+        {if (gameover==false){
         
         timebasejump=lastTimestamp;
         if(timebasejump+4000>lastTimestamp)jumping=true;else{jumping=false;timebasejump=0}
-        }
+        } }
 function buttonupn()
     {
         jumping=false;timebasejump=0;
     }
 
 function buttondown()
-        {
+        {if (gameover==false){
         go_left=false;go_right=false;crouch=true;attack=false;go_left=false; velocity_right=0; velocity_left=0; velocity_attack=0;
-	    }
+	    } }
 function buttondownn()
         {
         crouch=false;  
@@ -1029,6 +1064,10 @@ function buttonenter()
         {
         if (gameover==true  && screen==-1) //enter
             {
+            audiobg.pause();
+            audiobg0.play();
+
+audiobg0.loop = true; 
             reset();
             gameover=false;
             screen=-0.5;
@@ -1047,42 +1086,56 @@ document.onkeydown = checkKeyDown;
 function checkKeyDown(e) 
     {
  
-    if (e.keyCode == '37' ) //left
+    if (e.keyCode == '37' && gameover==false) //left
         {
-           if(screen<3 || (screen==3 && player_x<130))//rudis freedom
+           if(screen<3 || (screen==3 && player_x<130))//rudis freedom screen 3
             {
         go_left=true;crouch=false;attack=false;go_right=false;velocity_right=0; velocity_left=1; velocity_attack=0;to_left=true;leftpressed=true;
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_left=0;}else{run_animation_left=1}
             }
-           else{player_x=130;go_left=false;velocity_left=-1;to_left=false;leftpressed=false}
+           else if (screen==3 && player_x>=130){player_x=130;go_left=false;velocity_left=-1;to_left=false;leftpressed=false;}
+
+           if((screen>=4 && screen<9) || (screen==9 && player_x<130))//rudis freedom screen 9
+            {
+        go_left=true;crouch=false;attack=false;go_right=false;velocity_right=0; velocity_left=1; velocity_attack=0;to_left=true;leftpressed=true;
+        if(Math.trunc(lastTimestamp/100) % 2){run_animation_left=0;}else{run_animation_left=1}
+            }
+           else if(screen==9 && player_x>=130){player_x=130;go_left=false;velocity_left=-1;to_left=false;leftpressed=false;}
         }
-    if (e.keyCode == '39' ) //right
+    if (e.keyCode == '39'  && gameover==false) //right
         { 
-          if(screen<3 || (screen==3 && player_x<130))//rudis freedom
+          if(screen<3 || (screen==3 && player_x<130))//rudis freedom screen 3
             { 
         go_left=false;go_right=true;crouch=false;attack=false;go_left=false; velocity_right=1; velocity_left=0; velocity_attack=0;to_left=false;rightpressed=true;
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_right=0;}else{run_animation_right=1}
             }
-          else {player_x=130;go_right=false;velocity_right=-1;to_right=false;rightpressed=false}
+          else if(screen==3 && player_x>=130) {player_x=130;go_right=false;velocity_right=-1;to_right=false;rightpressed=false}
+
+         if ((screen>=4 && screen<9) || (screen==9 && player_x<130))//rudis freedom screen 9
+            { 
+        go_left=false;go_right=true;crouch=false;attack=false;go_left=false; velocity_right=1; velocity_left=0; velocity_attack=0;to_left=false;rightpressed=true;
+        if(Math.trunc(lastTimestamp/100) % 2){run_animation_right=0;}else{run_animation_right=1}
+            }
+          else if(screen==9 && player_x>=130) {player_x=130;go_right=false;velocity_right=-1;to_right=false;rightpressed=false}
         }
-    if (e.keyCode == '38' && timebasejump==0) //up cursor
+    if (e.keyCode == '38' && timebasejump==0 && gameover==false) //up cursor
         {
         
         timebasejump=lastTimestamp;
         if(timebasejump+4000>lastTimestamp)jumping=true;else{jumping=false;timebasejump=0}
         }
-    if (e.keyCode == '40') //down cursor
+    if (e.keyCode == '40' && gameover==false) //down cursor
         {
         go_left=false;go_right=false;crouch=true;attack=false;go_left=false; velocity_right=0; velocity_left=0; velocity_attack=0;
 	    }
-    if (e.keyCode == '88') //x attack
+    if (e.keyCode == '88' && gameover==false) //x attack
         {
         go_left=false; go_right=false; crouch=false; attack=true; velocity_right=0; velocity_left=0; velocity_attack=2;run_animation_attack=0;power_jupiter=power_jupiter+0.2;     
 	    if(Math.trunc(lastTimestamp/100) % 2){run_animation_jupiter=0;playerLoadingJupiter();}else{run_animation_jupiter=1;}    
 
         } 
 	
-    if (e.keyCode == '90') //z attack
+    if (e.keyCode == '90' && gameover==false) //z attack
         {
         if (crouch==true)//crouch z atack
             {
@@ -1107,7 +1160,7 @@ function checkKeyDown(e)
 			}       
             }
         }
-    if (e.keyCode == '67') //c Protect
+    if (e.keyCode == '67' && gameover==false) //c Protect
         {
         protect = true;
  		
@@ -1117,6 +1170,9 @@ function checkKeyDown(e)
 		
     if (e.keyCode == '13' && gameover==true  && screen==-1) //enter
         {
+        audiobg.pause();
+        audiobg0.play();
+audiobg0.loop = true; 
         reset();
         gameover=false;
         screen=-0.5;
@@ -1181,10 +1237,12 @@ function draw(timestamp)
     requestAnimationFrame(draw);
     deltaTime = (timestamp - lastTimestamp) / perfectFrameTime;
 
-
-	if (heroHealth<=0){actorsIngame.forEach(function(value, index, array){if(1){value.ActorDie();value.DestroySelf.bind(value)}});gameover=true;screen=-1}
-    if (player_y>340){actorsIngame.forEach(function(value, index, array){if(1){value.ActorDie();value.DestroySelf.bind(value)}});gameover=true;screen=-1}
-    if (EnemyArcherHealth<=0 && screen==1)     
+//	if (heroHealth<=0){actorsIngame.forEach(function(value, index, array){if(1){value.ActorDie();value.DestroySelf.bind(value)}});gameover=true;screen=-1}
+	if (heroHealth<=0 && screen<=4){actorsIngame.forEach(function(value, index, array){if(1){value.ActorDie();value.DestroySelf.bind(value)}});gameover=true;screen=-1;audiobg0.pause();audiobg.play();audiobg.loop = true; }
+    if (heroHealth<=0 && screen>4 && screen<10){actorsIngame.forEach(function(value, index, array){if(1){value.ActorDie();value.DestroySelf.bind(value)}});gameover=true;screen=-1;audiobg5.pause();audiobg.play();audiobg.loop = true;}
+    if (player_y>340 && screen<=4){actorsIngame.forEach(function(value, index, array){if(1){value.ActorDie();value.DestroySelf.bind(value)}});gameover=true;screen=-1;audiobg0.pause();audiobg.play();audiobg.loop = true;}
+    if (player_y>340 && screen>4){actorsIngame.forEach(function(value, index, array){if(1){value.ActorDie();value.DestroySelf.bind(value)}});gameover=true;screen=-1;audiobg5.pause();audiobg.play();audiobg.loop = true;}
+/*    if (EnemyArcherHealth<=0 && screen==1)     
         {
 		if( NextStageIntervalHandle == null )
 		{
@@ -1194,7 +1252,7 @@ function draw(timestamp)
 		
         fightmode=false;
 
-        }	
+        }	*/
 
     ctx.beginPath();
 
@@ -1204,16 +1262,32 @@ if(screen>-1)
 playergravity();
 if(screen>-1)
 actorsgravity();
-
-    if( actorsIngame.indexOf(EnemyArcher1) > -1 || actorsIngame.indexOf(EnemyArcher2) > -1 || actorsIngame.indexOf(EnemyArcher3) > -1 ) 
+    if(( actorsIngame.indexOf(EnemyArcher1) > -1) && (screen==-0,5) ) 
         {
 if (player_x>295)player_x=295;
 if (player_x<-85)player_x=-85;
+
+        }
+
+    else if(( actorsIngame.indexOf(EnemyArcher1) > -1 || actorsIngame.indexOf(EnemyArcher2) > -1) && (screen==0 || screen==4) ) 
+        {
+if (player_x>295)player_x=295;
+if (player_x<-85)player_x=-85;
+
+        }
+
+    else if(( actorsIngame.indexOf(EnemyArcher1) > -1 || actorsIngame.indexOf(EnemyArcher2) > -1 || actorsIngame.indexOf(EnemyArcher3) > -1 ) && (screen==1 || screen==2 || screen>4) ) 
+        {
+if (player_x>295)player_x=295;
+if (player_x<-85)player_x=-85;
+
         }
     else
         {
+
+if (player_x<-85 && screen==4)player_x=-85;
     // salt de pantalles  
-    if(screen==-0.5 && player_x>340 && fightmode==false) {SetSpecificStage(0);player_x=-30;fightmode=false}
+    if(screen==-0.5 && player_x>340 && fightmode==false) {SetSpecificStage(0);player_x=-30;fightmode=false;}
     if(screen==0 && player_x<-50 && fightmode==false){SetSpecificStage(-0.5);player_x=330;fightmode=false;}
     if(screen==0 && player_x>340 && fightmode==false){SetSpecificStage(1);player_x=-30;fightmode=false;}
     if(screen==1 && player_x<-50 && fightmode==false){SetSpecificStage(0);player_x=330;fightmode=false;}
@@ -1221,8 +1295,8 @@ if (player_x<-85)player_x=-85;
     if(screen==2 && player_x<-50 && fightmode==false){SetSpecificStage(1);player_x=330;fightmode=false;}
     if(screen==2 && player_x>340 && fightmode==false){SetSpecificStage(3);player_x=-30;fightmode=false;}
     if(screen==3 && player_x<-50 && fightmode==false){SetSpecificStage(2);player_x=330;fightmode=false;}
-    /*if(screen==3 && player_x>340 && fightmode==false){SetSpecificStage(4);player_x=-30;fightmode=false;}
-    if(screen==4 && player_x<-50 && fightmode==false){SetSpecificStage(3);player_x=330;fightmode=false;}
+    if(screen==3 && player_x>340 && fightmode==false){SetSpecificStage(4);player_x=-30;fightmode=false;}
+    //if(screen==4 && player_x<-50 && fightmode==false){SetSpecificStage(3);player_x=330;fightmode=false;}
     if(screen==4 && player_x>340 && fightmode==false){SetSpecificStage(5);player_x=-30;fightmode=false;}
     if(screen==5 && player_x<-50 && fightmode==false){SetSpecificStage(4);player_x=330;fightmode=false;}
     if(screen==5 && player_x>340 && fightmode==false){SetSpecificStage(6);player_x=-30;fightmode=false;}
@@ -1230,8 +1304,10 @@ if (player_x<-85)player_x=-85;
     if(screen==6 && player_x>340 && fightmode==false){SetSpecificStage(7);player_x=-30;fightmode=false;}
     if(screen==7 && player_x<-50 && fightmode==false){SetSpecificStage(6);player_x=330;fightmode=false;}
     if(screen==7 && player_x>340 && fightmode==false){SetSpecificStage(8);player_x=-30;fightmode=false;}
-    if(screen==8 && player_x<-50 && fightmode==false){SetSpecificStage(7);player_x=330;fightmode=false;}*/
-        }
+    if(screen==8 && player_x<-50 && fightmode==false){SetSpecificStage(7);player_x=330;fightmode=false;}
+    if(screen==8 && player_x>340 && fightmode==false){SetSpecificStage(9);player_x=-30;fightmode=false;}
+    if(screen==9 && player_x<-50 && fightmode==false){SetSpecificStage(8);player_x=330;fightmode=false;}
+    }
     
     
     
@@ -1268,27 +1344,46 @@ if (player_x<-85)player_x=-85;
         
         }
 
-     if(screen>-1)
+     if(screen>-1 && screen<4 )
      {
 
      for (i=0;i<4;i++)
         {
         for(j=0;j<4;j++)
             {
-            ctx.drawImage(wall,0,0,500,500,0*i,0*j,90,90);
-            ctx.drawImage(wall,0,0,500,500,90*i,0*j,90,90);
-            ctx.drawImage(wall,0,0,500,500,0*i,90*j,90,90);
-            ctx.drawImage(wall,0,0,500,500,90*i,90*j,90,90);
+            ctx.drawImage(wall1,0,0,500,500,0*i,0*j,90,90);
+            ctx.drawImage(wall1,0,0,500,500,90*i,0*j,90,90);
+            ctx.drawImage(wall1,0,0,500,500,0*i,90*j,90,90);
+            ctx.drawImage(wall1,0,0,500,500,90*i,90*j,90,90);
 
             }
         }
 
-ctx.drawImage(torch,32*i,32*j,32,32,270-32,100,32,32);
-ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
+//ctx.drawImage(torch,32*i,32*j,32,32,270-32,100,32,32);
+//ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
 
 
      }  
-     
+    if(screen>3 && screen<10 )
+     {
+
+     for (i=0;i<4;i++)
+        {
+        for(j=0;j<4;j++)
+            {
+            ctx.drawImage(wall2,0,0,500,500,0*i,0*j,90,90);
+            ctx.drawImage(wall2,0,0,500,500,90*i,0*j,90,90);
+            ctx.drawImage(wall2,0,0,500,500,0*i,90*j,90,90);
+            ctx.drawImage(wall2,0,0,500,500,90*i,90*j,90,90);
+
+            }
+        }
+
+//ctx.drawImage(torch,32*i,32*j,32,32,270-32,100,32,32);
+//ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
+
+
+     }  
      
      if(screen==-0.5)
         {
@@ -1366,9 +1461,79 @@ ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
         } 
      if(screen==4)
         {
+		for (var j=0;j<360;j++) 
+		{
+			for (var i=0;i<360;i++) 
+			{
+				if (screenarray2[j][i]=="p"){ctx.fillStyle = 'brown';ctx.fillRect(i,j,1,10);}
+				if (screenarray2[j][i]=="h" && botiquin0_agafat==false){ctx.drawImage(healthimage,0,0,20,20,i+35,j,20,20);}
+			}
+		}   	
+	    if (player_x+64>90+128 && player_y+128>=240 && player_y+128<260 && botiquin0_agafat==false){audiohup.play();heroHealth=100;screenarray2[100+128][200]=".";botiquin0_agafat=true}
+
 
         } 
+     if(screen==5)
+        {
+		for (var j=0;j<360;j++) 
+		{
+			for (var i=0;i<360;i++) 
+			{
+				if (screenarray3[j][i]=="p"){ctx.fillStyle = 'brown';ctx.fillRect(i,j,1,10);}
+				if (screenarray3[j][i]=="h"&& botiquin1_agafat==false){ctx.drawImage(healthimage,0,0,20,20,i+35,j,20,20);}
+				
+			}
+		} 
+        if (player_x+64>150+128 && player_y+128>=180 && player_y+128<200 && botiquin1_agafat==false){audiohup.play();heroHealth=100;screenarray3[40+128][280]=".";botiquin1_agafat=true}
 
+        }  
+     if(screen==6)
+        {
+ 		for (var j=0;j<360;j++) 
+		{
+			for (var i=0;i<360;i++) 
+			{
+				if (screenarray4[j][i]=="p"){ctx.fillStyle = 'brown';ctx.fillRect(i,j,1,10);}
+
+			}
+		}   
+
+
+        }
+     if(screen==7)
+        {
+ 		for (var j=0;j<360;j++) 
+		{
+			for (var i=0;i<360;i++) 
+			{
+				if (screenarray4[j][i]=="p"){ctx.fillStyle = 'brown';ctx.fillRect(i,j,1,10);}
+
+			}
+		}   
+        }
+     if(screen==8)
+        {
+ 		for (var j=0;j<360;j++) 
+		{
+			for (var i=0;i<360;i++) 
+			{
+				if (screenarray4[j][i]=="p"){ctx.fillStyle = 'brown';ctx.fillRect(i,j,1,10);}
+
+			}
+		}   
+        }
+     if(screen==9)
+        {
+		for (var j=0;j<360;j++) 
+
+		{
+			for (var i=0;i<360;i++) 
+			{
+				if (screenarray1[j][i]=="p"){ctx.fillStyle = 'brown';ctx.fillRect(i,j,1,10);}
+                
+			}
+		}  
+        }
 	if(screen>-1)
 	{
 	
@@ -1494,12 +1659,12 @@ ctx.drawImage(torch,32*i,32*j,32,32,90,100,32,32);
   else
    { 
 
-	if( go_right && rightpressed && !IsOnExtremOfPantalla("Player", null, false )  )
+	if( go_right && rightpressed)  // && !IsOnExtremOfPantalla("Player", null, false )  )
 	{  player_x+=2;  } 	
 	
 	
 	//
-	if( go_left && leftpressed && !IsOnExtremOfPantalla("Player", null, true )  )
+	if( go_left && leftpressed)  // && !IsOnExtremOfPantalla("Player", null, true )  )
 	{  player_x-=2; } 
 
 
@@ -1529,7 +1694,29 @@ if((screen==3 && player_x>=130))//rudisfreedom
     ctx.font = "40px arial";
     ctx.fillText("Stage 1", 119, 120); 
     ctx.fillText("Completed!", 85, 160);
-    setTimeout(function(){/*establir variables per saltar de pantalla*/SetSpecificStage(4);player_x=-30;fightmode=false;},5000);
+    setTimeout(function(){/*establir variables per saltar de pantalla*/screen=4;SetSpecificStage(4);player_x=-30;fightmode=false;audiobg0.pause();audiobg5.play();audiobg5.loop = true; },5000);
+    }
+if((screen>3 && screen<9) || (screen==9 && player_x<130))
+    {
+    if(screen>-1 && crouch==false && attack==false && protect==false && go_left==false && go_right==false && velocity_right==0 && post_jupiter==false && to_left==false) 
+    {ctx.drawImage(heroIldeR,0,0,128,128,player_x,player_y,128,128)} //idle
+
+    if(screen>-1 && crouch==false && attack==false && protect==false && go_left==false && go_right==false && velocity_right==0 && post_jupiter==false && to_left==true) 
+    {ctx.drawImage(heroIldeL,0,0,128,128,player_x,player_y,128,128)} //idle
+    }
+if((screen==9 && player_x>=130))//rudisfreedom
+    {
+    if (actorsIngame.indexOf(VictoryRudis) > -1)//rudisfreedom
+        {
+        DestroySpecificActorOfTheWorld(VictoryRudis);
+        }
+    ctx.drawImage(herofreedom,0,0,128,128,player_x,player_y,128,128)//rudisfreedom
+    if(freedomplayable){freedom.play();freedomplayable=false;}
+    ctx.fillStyle = 'white';
+    ctx.font = "40px arial";
+    ctx.fillText("Stage 2", 119, 120); 
+    ctx.fillText("Completed!", 85, 160);
+    setTimeout(function(){/*establir variables per saltar de pantalla*/screen=-1;SetSpecificStage(-1);player_x=-30;fightmode=false;gameover=true;audiobg5.pause();audiobg.play();audiobg.loop = true; },5000);
     }
     if(screen>-1 && velocity_right==1 && run_animation_right==0 && attack==false && go_left==false && crouch==false && go_right==true && post_jupiter==false){ctx.drawImage(heroRun0R,0,0,128,128,player_x,player_y,128,128);} //walk right
     
@@ -1611,7 +1798,13 @@ function playergravity()
             if(screen==0){screenArrayNext=screenarray2[player_y-1+120][player_x+64];}
             if(screen==1){screenArrayNext=screenarray3[player_y-1+120][player_x+64];}
             if(screen==2){screenArrayNext=screenarray4[player_y-1+120][player_x+64];}
-            if(screen==3){screenArrayNext=screenarray1[player_y-1+120][player_x+64];}  
+            if(screen==3){screenArrayNext=screenarray1[player_y-1+120][player_x+64];}
+              if(screen==4){screenArrayNext=screenarray2[player_y-1+120][player_x+64];}
+              if(screen==5){screenArrayNext=screenarray3[player_y-1+120][player_x+64];}
+             if(screen==6){screenArrayNext=screenarray4[player_y-1+120][player_x+64];}
+            if(screen==7){screenArrayNext=screenarray4[player_y-1+120][player_x+64];}
+            if(screen==8){screenArrayNext=screenarray4[player_y-1+120][player_x+64];}
+            if(screen==9){screenArrayNext=screenarray1[player_y-1+120][player_x+64];}
      if (screenArrayNext!="p" && jumping==false && player_y<359){player_y=player_y+1;}
     if (player_y>0 && jumping==true){player_y=player_y-1; }
 }
@@ -1621,37 +1814,37 @@ function actorsgravity()
             if(Archer1actor_y>340){Archer1actor_y=340;}
             if(Archer2actor_y>340){Archer2actor_y=340;}
             if(Archer3actor_y>340){Archer3actor_y=340;}
-            if(screen==-0.5){Archer1NextScreenArray=screenarray1[Archer1actor_y-1+120][Archer1actor_x+64];}
-            if(screen==0){Archer1NextScreenArray=screenarray2[Archer1actor_y-1+120][Archer1actor_x+64];}
-            if(screen==0){Archer2NextScreenArray=screenarray2[Archer2actor_y-1+120][Archer2actor_x+64];}
+            if(screen==-0.5  || screen==3 || screen==9){Archer1NextScreenArray=screenarray1[Archer1actor_y-1+120][Archer1actor_x+64];}
+            if(screen==0 || screen==4){Archer1NextScreenArray=screenarray2[Archer1actor_y-1+120][Archer1actor_x+64];}
+            if(screen==0 || screen==4){Archer2NextScreenArray=screenarray2[Archer2actor_y-1+120][Archer2actor_x+64];}
             //if(screen==0){Archer3NextScreenArray=screenarray2[Archer3actor_y-1+120][Archer3actor_x+64];}
-            if(screen==1){Archer1NextScreenArray=screenarray3[Archer1actor_y-1+120][Archer1actor_x+64];}
-            if(screen==1){Archer2NextScreenArray=screenarray3[Archer2actor_y-1+120][Archer2actor_x+64];}
-            if(screen==1){Archer3NextScreenArray=screenarray3[Archer3actor_y-1+120][Archer3actor_x+64];}
+            if(screen==1 || screen==5){Archer1NextScreenArray=screenarray3[Archer1actor_y-1+120][Archer1actor_x+64];}
+            if(screen==1 || screen==5){Archer2NextScreenArray=screenarray3[Archer2actor_y-1+120][Archer2actor_x+64];}
+            if(screen==1 || screen==5){Archer3NextScreenArray=screenarray3[Archer3actor_y-1+120][Archer3actor_x+64];}
             //parar de "saltar" si cal
-            if(screen==2 && desiredActor1yprevious!=desiredActor1y && desiredActor1y>Archer1actor_y && desiredActor1y!=undefined && Archer1jump==true){Archer1jump=false;desiredActor1y=undefined;desiredActor1yprevious=undefined;}
-            if(screen==2 && desiredActor2yprevious!=desiredActor2y && desiredActor2y>Archer2actor_y && desiredActor2y!=undefined && Archer2jump==true){Archer2jump=false;desiredActor2y=undefined;desiredActor2yprevious=undefined;}
-            if(screen==2 && desiredActor3yprevious!=desiredActor3y && desiredActor3y>Archer3actor_y && desiredActor3y!=undefined && Archer3jump==true){Archer3jump=false;desiredActor3y=undefined;desiredActor3yprevious=undefined;}
+            if((screen==2 || screen==6 || screen==7 || screen==8)&& desiredActor1yprevious!=desiredActor1y && desiredActor1y>Archer1actor_y && desiredActor1y!=undefined && Archer1jump==true){Archer1jump=false;desiredActor1y=undefined;desiredActor1yprevious=undefined;}
+            if((screen==2 || screen==6 || screen==7 || screen==8) && desiredActor2yprevious!=desiredActor2y && desiredActor2y>Archer2actor_y && desiredActor2y!=undefined && Archer2jump==true){Archer2jump=false;desiredActor2y=undefined;desiredActor2yprevious=undefined;}
+            if((screen==2 || screen==6 || screen==7 || screen==8) && desiredActor3yprevious!=desiredActor3y && desiredActor3y>Archer3actor_y && desiredActor3y!=undefined && Archer3jump==true){Archer3jump=false;desiredActor3y=undefined;desiredActor3yprevious=undefined;}
             //gravetat
-            if(screen==2 && Archer1jump==false){Archer1NextScreenArray=screenarray4[Archer1actor_y-1+120][Archer1actor_x+64];}
-            if(screen==2 && Archer2jump==false){Archer2NextScreenArray=screenarray4[Archer2actor_y-1+120][Archer2actor_x+64];}
-            if(screen==2 && Archer3jump==false){Archer3NextScreenArray=screenarray4[Archer3actor_y-1+120][Archer3actor_x+64];}
+            if(screen==2 || screen==6 || screen==7 || screen==8 && Archer1jump==false){Archer1NextScreenArray=screenarray4[Archer1actor_y-1+120][Archer1actor_x+64];}
+            if(screen==2 || screen==6 || screen==7 || screen==8 && Archer2jump==false){Archer2NextScreenArray=screenarray4[Archer2actor_y-1+120][Archer2actor_x+64];}
+            if(screen==2 || screen==6 || screen==7 || screen==8 && Archer3jump==false){Archer3NextScreenArray=screenarray4[Archer3actor_y-1+120][Archer3actor_x+64];}
             //decidir si saltar
-            if(screen==2)
+            if(screen==2 || screen==6 || screen==7 || screen==8)
                 {
                 for(i=Archer1actor_y-1+120;i>0;i--)
                     {
                     if(screenarray4[i][Archer1actor_x+64]=="p"){Archer1jump=true;desiredActor1y=i-190;}
                     }
                 }
-            if(screen==2)
+            if(screen==2 || screen==6 || screen==7 || screen==8)
                 {
                 for(i=Archer2actor_y-1+120;i>0;i--)
                     {
                     if(screenarray4[i][Archer2actor_x+64]=="p"){Archer2jump=true;desiredActor2y=i-190;}
                     }
                 }
-            if(screen==2)
+            if(screen==2 || screen==6 || screen==7 || screen==8)
                 {
                 for(i=Archer3actor_y-1+120;i>0;i--)
                     {
@@ -1971,19 +2164,43 @@ function HandleNewStage(NewStage)
 	if( NewStage == -0.5 ) 
 	{
 actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
-    DestroySpecificActorOfTheWorld(VictoryRudis);
+    if( actorsIngame.indexOf(Knifevar) > -1 )
+DestroySpecificActorOfTheWorld(Knifevar);
+    if( actorsIngame.indexOf(VictoryRudis) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(VictoryRudis);
+
+        }
     if( actorsIngame.indexOf(EnemyArcher1) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1);
+
+        }
     if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1AI);
+
+        }
 	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2);
+
+        }
 	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+
+        }
     if(actorsIngame.indexOf(EnemyArcher3) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3);
+
+        }
     if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
+        }
 
 		Knifevar=spawnActor('Knife', 175, 0, 2, "Knife.png","Knife" );
   		Archer1actor_y = 0;
@@ -1993,22 +2210,47 @@ actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value
 		EnemyArcher1.PawnController = EnemyArcher1AI; 
 	}
 
-	if( NewStage == 0 ) 
+	if( NewStage == 0 ||  NewStage == 4) 
 	{
+actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
+    if( actorsIngame.indexOf(Knifevar) > -1 )
 DestroySpecificActorOfTheWorld(Knifevar);
-    DestroySpecificActorOfTheWorld(VictoryRudis);
+    if( actorsIngame.indexOf(VictoryRudis) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(VictoryRudis);
+
+        }
     if( actorsIngame.indexOf(EnemyArcher1) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1);
+
+        }
     if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1AI);
+
+        }
 	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2);
+
+        }
 	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+
+        }
     if(actorsIngame.indexOf(EnemyArcher3) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3);
+
+        }
     if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
+        }
+
 		Archer1actor_y = 0;
  			Archer2actor_y = 0;
 		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyR.png", "Pawn",0);   //Enemy archer 1
@@ -2022,22 +2264,46 @@ DestroySpecificActorOfTheWorld(Knifevar);
 		EnemyArcher2.PawnController = EnemyArcher2AI;  		
 		    Archer2actor_x=EnemyArcher2.x; 
 	}
-	if( NewStage == 1 ) 
+	if( NewStage == 1 || NewStage == 5 ) 
 	{
+actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
+    if( actorsIngame.indexOf(Knifevar) > -1 )
+DestroySpecificActorOfTheWorld(Knifevar);
+    if( actorsIngame.indexOf(VictoryRudis) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(VictoryRudis);
 
-    DestroySpecificActorOfTheWorld(VictoryRudis);
+        }
     if( actorsIngame.indexOf(EnemyArcher1) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1);
+
+        }
     if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1AI);
+
+        }
 	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2);
+
+        }
 	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+
+        }
     if(actorsIngame.indexOf(EnemyArcher3) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3);
+
+        }
     if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
+        }
 
 		Archer1actor_y = 0;
  			Archer2actor_y = 0;
@@ -2059,22 +2325,46 @@ DestroySpecificActorOfTheWorld(Knifevar);
 		    Archer3actor_x=EnemyArcher3.x; 
 
 	}
-	if( NewStage == 2 ) 
+	if( NewStage == 2 || NewStage == 6 || NewStage == 7 || NewStage == 8) 
 	{    
-    DestroySpecificActorOfTheWorld(VictoryRudis);
-    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1);
-    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
-	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2);
-	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
-    if(actorsIngame.indexOf(EnemyArcher3) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3);
-    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
+    if( actorsIngame.indexOf(Knifevar) > -1 )
+DestroySpecificActorOfTheWorld(Knifevar);
+    if( actorsIngame.indexOf(VictoryRudis) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(VictoryRudis);
 
+        }
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1);
+
+        }
+    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1AI);
+
+        }
+	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2);
+
+        }
+	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+
+        }
+    if(actorsIngame.indexOf(EnemyArcher3) > -1)
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3);
+
+        }
+    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
+        }
 
 			Archer1actor_y = 0;
  			Archer2actor_y = 0;
@@ -2096,21 +2386,46 @@ DestroySpecificActorOfTheWorld(Knifevar);
 		    Archer3actor_x=EnemyArcher3.x; 
 
 	}
-	if( NewStage == 3 ) 
+	if( NewStage == 3 || NewStage == 9) 
 	{
+actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
+    if( actorsIngame.indexOf(Knifevar) > -1 )
+DestroySpecificActorOfTheWorld(Knifevar);
+    if( actorsIngame.indexOf(VictoryRudis) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(VictoryRudis);
 
+        }
     if( actorsIngame.indexOf(EnemyArcher1) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1);
+
+        }
     if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher1AI);	
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1AI);
+
+        }
 	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2);
+
+        }
 	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
-    DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+
+        }
     if(actorsIngame.indexOf(EnemyArcher3) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3);
+
+        }
     if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
-    DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
+        }
 
 
     
