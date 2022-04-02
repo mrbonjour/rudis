@@ -1001,7 +1001,7 @@ function buttonleft()
 
     if(leftpressed==true)
         {
-        window.setTimeout(buttonleft,20);
+        buttonleft();
         }
 
         }
@@ -1024,11 +1024,12 @@ function buttonright()
         go_left=false;go_right=true;crouch=false;attack=false;go_left=false; velocity_right=1; velocity_left=0; velocity_attack=0;to_left=false;rightpressed=true;
         if(Math.trunc(lastTimestamp/100) % 2){run_animation_right=0;}else{run_animation_right=1}
             }
- }
+
           else if(screen==9 && player_x>=130) {player_x=130;go_right=false;velocity_right=-1;to_right=false;rightpressed=false}
+ }
     if(rightpressed==true)
         {
-        window.setTimeout(buttonright,20);
+        buttonright();
         }
 
         }
