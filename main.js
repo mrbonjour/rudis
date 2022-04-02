@@ -1001,7 +1001,7 @@ function buttonleft()
 
     if(leftpressed==true)
         {
-        buttonleft();
+        window.setTimeout(buttonleft,20);
         }
 
         }
@@ -1029,7 +1029,7 @@ function buttonright()
  }
     if(rightpressed==true)
         {
-        buttonright();
+        window.setTimeout(buttonright,20);
         }
 
         }
