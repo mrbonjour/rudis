@@ -514,7 +514,7 @@ class Projectile extends Actor
 			if( !protect && screen>=4 && screen<10)
 			{
                 
-				takeDamage("Hero", 4); 
+				takeDamage("Hero", 3); 
 				this.DestroySelf(); 				
 			}
 			else
