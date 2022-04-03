@@ -74,7 +74,12 @@ var heroProtectCrouchR=new Image();
 var heroProtectCrouchL=new Image();
 var enemyL=new Image();
 var enemyR=new Image();
+var enemyDeadL=new Image();
 var enemyDeadR=new Image();
+var enemyLB=new Image();
+var enemyRB=new Image();
+var enemyDeadLB=new Image();
+var enemyDeadRB=new Image();
 var live=new Image();
 var rudiskeyboard=new Image();
 var bloodRudis=new Image();
@@ -297,10 +302,17 @@ class Actor
 		    
 		   
             }
-        if(this.actorClass=="Pawn")
+        if(this.actorClass=="Pawn" && screen<4)
             {
 		    this.ActorSetActorState("Dead");
 	    	this.ChangeMainTexture("enemyDeadR.png");
+		    setTimeout(this.DestroySelf.bind(this),3000); //Find a way to clear the timer
+            }
+
+        if(this.actorClass=="Pawn" && screen>3)
+            {
+		    this.ActorSetActorState("Dead");
+	    	this.ChangeMainTexture("enemyDeadRB.png");
 		    setTimeout(this.DestroySelf.bind(this),3000); //Find a way to clear the timer
             }
 
@@ -392,13 +404,23 @@ class Pawn extends Actor
 
 			if ( Math.abs( InterpolateNumbers( this.x, 0.001, this.PawnController.DesiredLocToGoX ) ) > 50 ) 
 			{   
-				if( InterpolateNumbers( this.x, 0.001, this.PawnController.DesiredLocToGoX ) >  this.x  ) 
+				if( InterpolateNumbers( this.x, 0.001, this.PawnController.DesiredLocToGoX ) >  this.x  && screen<4) 
 				{
 					this.ChangeMainTexture('enemyR.png');  
 				}
-				else
+				else if( InterpolateNumbers( this.x, 0.001, this.PawnController.DesiredLocToGoX ) <  this.x  && screen<4)
 				{ 
 					this.ChangeMainTexture('enemyL.png'); 
+				}
+
+
+				else if( InterpolateNumbers( this.x, 0.001, this.PawnController.DesiredLocToGoX ) >  this.x  && screen>3) 
+				{
+					this.ChangeMainTexture('enemyRB.png');  
+				}
+				else if( InterpolateNumbers( this.x, 0.001, this.PawnController.DesiredLocToGoX ) <  this.x  && screen>3) 
+				{ 
+					this.ChangeMainTexture('enemyLB.png'); 
 				}
 			} 
 
@@ -598,13 +620,22 @@ var gr0=getRandomInt(200);
   
 	if( this.controlledactor != null )
 	{	
-		if( this.controlledactor.ActorState != "Dead" && gameover==false) 
+		if( this.controlledactor.ActorState != "Dead" && gameover==false && screen<4) 
 		{
             //this.controlledactor.y=this.controlledactor.y+54;
             if(player_x+64<this.controlledactor.x+64)
 			spawnActor('EnemyArcherArrow', this.controlledactor.x, this.controlledactor.y+54, 2,"fireL.png", "Projectile", null , 5000, -100, 0);   //actor 0
             if(player_x+64>=this.controlledactor.x+64)
 			spawnActor('EnemyArcherArrow', this.controlledactor.x+64, this.controlledactor.y+54, 2,"fireR.png", "Projectile", null , 5000, 100, 0);   //actor 0 
+            firese.play();
+		}
+		if( this.controlledactor.ActorState != "Dead" && gameover==false && screen>3) 
+		{
+            //this.controlledactor.y=this.controlledactor.y+54;
+            if(player_x+64<this.controlledactor.x+64)
+			spawnActor('EnemyArcherArrow', this.controlledactor.x, this.controlledactor.y+54, 2,"fireLB.png", "Projectile", null , 5000, -100, 0);   //actor 0
+            if(player_x+64>=this.controlledactor.x+64)
+			spawnActor('EnemyArcherArrow', this.controlledactor.x+64, this.controlledactor.y+54, 2,"fireRB.png", "Projectile", null , 5000, 100, 0);   //actor 0 
             firese.play();
 		}
 	}
@@ -704,6 +735,12 @@ function preloader()
         {
         enemyL.setAttribute("src", "enemyL.png");
         enemyR.setAttribute("src", "enemyR.png");
+        enemyDeadL.setAttribute("src", "enemyDeadL.png");
+        enemyDeadR.setAttribute("src", "enemyDeadR.png");
+        enemyLB.setAttribute("src", "enemyLB.png");
+        enemyRB.setAttribute("src", "enemyRB.png");
+        enemyDeadLB.setAttribute("src", "enemyDeadLB.png");
+        enemyDeadRB.setAttribute("src", "enemyDeadRB.png");
         heroIldeL.setAttribute("src", "heroIldeL.png");
 		heroIldeR.setAttribute("src", "heroIldeR.png");
         heroRun0L.setAttribute("src", "heroRun0L.png");
@@ -728,7 +765,6 @@ function preloader()
         heroProtectStandR.setAttribute("src", "heroPrepareAttackR.png");
         heroProtectCrouchL.setAttribute("src", "heroCrouchPrepareAttackL.png");
         heroProtectStandL.setAttribute("src", "heroPrepareAttackL.png");
-        enemyDeadR.setAttribute("src", "enemyDeadR.png");
         herofreedom.setAttribute("src", "freedom.png");
         rudiskeyboard.setAttribute("src", "rudiskeyboard.png");
         bloodRudis.setAttribute("src", "bloodRudis.png");
@@ -1672,11 +1708,7 @@ if (player_x<-85 && screen==4)player_x=-85;
 	{  player_x-=2; } 
 
 
-    //enemy
-    //if(screen==0 && enemy_x>=player_x && EnemyArcherHealth>0){ctx.drawImage(enemyL,0,0,128,128,enemy_x,enemy_y,128,128);} 
-    //if(screen==0 && enemy_x<player_x && EnemyArcherHealth>0){ctx.drawImage(enemyR,0,0,128,128,enemy_x,enemy_y,128,128);} 
 
-    //if(screen==0 && EnemyArcherHealth<=0){ctx.drawImage(enemyDeadR,0,0,128,128,enemy_x,enemy_y,128,128);} 
     //player
 if(screen<3 || (screen==3 && player_x<130))
     {
@@ -2214,7 +2246,7 @@ DestroySpecificActorOfTheWorld(Knifevar);
 		EnemyArcher1.PawnController = EnemyArcher1AI; 
 	}
 
-	if( NewStage == 0 ||  NewStage == 4) 
+	if( NewStage == 0) 
 	{
 actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
     if( actorsIngame.indexOf(Knifevar) > -1 )
@@ -2268,7 +2300,63 @@ DestroySpecificActorOfTheWorld(Knifevar);
 		EnemyArcher2.PawnController = EnemyArcher2AI;  		
 		    Archer2actor_x=EnemyArcher2.x; 
 	}
-	if( NewStage == 1 || NewStage == 5 ) 
+	if( NewStage == 4) 
+	{
+actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
+    if( actorsIngame.indexOf(Knifevar) > -1 )
+DestroySpecificActorOfTheWorld(Knifevar);
+    if( actorsIngame.indexOf(VictoryRudis) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(VictoryRudis);
+
+        }
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1);
+
+        }
+    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1AI);
+
+        }
+	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2);
+
+        }
+	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+
+        }
+
+    if(actorsIngame.indexOf(EnemyArcher3) > -1)
+
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3);
+
+        }
+    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
+        }
+
+		Archer1actor_y = 0;
+ 			Archer2actor_y = 0;
+		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyRB.png", "Pawn",4);   //Enemy archer 1
+		EnemyArcher1AI = spawnActor('EnemyArcherAIController1', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher1);   //AIController evil of archer
+		EnemyArcher1AI.DesiredLocToGoX = EnemyArcher1.x; EnemyArcher1AI.DesiredLocToGoY = EnemyArcher1.y; 
+		EnemyArcher1.PawnController = EnemyArcher1AI;  
+    Archer1actor_x=EnemyArcher1.x; 
+		EnemyArcher2 = spawnActor('EnemyArcherExtra2', 60, 0, 2, "enemyRB.png", "Pawn",4);   //Enemy archer 2 
+		EnemyArcher2AI = spawnActor('EnemyArcherAIController2', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher2);   //AIController evil of archer		
+		EnemyArcher2AI.DesiredLocToGoX = EnemyArcher2.x; EnemyArcher2AI.DesiredLocToGoY = EnemyArcher2.y; 		
+		EnemyArcher2.PawnController = EnemyArcher2AI;  		
+		    Archer2actor_x=EnemyArcher2.x; 
+	}
+	if( NewStage == 1 ) 
 	{
 actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
     if( actorsIngame.indexOf(Knifevar) > -1 )
@@ -2322,14 +2410,76 @@ DestroySpecificActorOfTheWorld(Knifevar);
 		EnemyArcher2AI.DesiredLocToGoX = EnemyArcher2.x; EnemyArcher2AI.DesiredLocToGoY = EnemyArcher2.y; 		
 		EnemyArcher2.PawnController = EnemyArcher2AI;  		
 		    Archer2actor_x=EnemyArcher2.x; 
-		EnemyArcher3 = spawnActor('EnemyArcherExtra3', 70, 0, 2, "enemyR.png", "Pawn"),1;   //Enemy archer 3 	
+		EnemyArcher3 = spawnActor('EnemyArcherExtra3', 70, 0, 2, "enemyR.png", "Pawn",1);   //Enemy archer 3 	
 		EnemyArcher3AI = spawnActor('EnemyArcherAIController3', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher3);   //AIController evil of archer	
 		EnemyArcher3AI.DesiredLocToGoX = EnemyArcher3.x; EnemyArcher3AI.DesiredLocToGoY = EnemyArcher3.y; 		
 		EnemyArcher3.PawnController = EnemyArcher3AI; 
 		    Archer3actor_x=EnemyArcher3.x; 
 
 	}
-	if( NewStage == 2 || NewStage == 6 || NewStage == 7 || NewStage == 8) 
+	if( NewStage == 5 ) 
+	{
+actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
+    if( actorsIngame.indexOf(Knifevar) > -1 )
+DestroySpecificActorOfTheWorld(Knifevar);
+    if( actorsIngame.indexOf(VictoryRudis) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(VictoryRudis);
+
+        }
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1);
+
+        }
+    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1AI);
+
+        }
+	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2);
+
+        }
+	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+
+        }
+    if(actorsIngame.indexOf(EnemyArcher3) > -1)
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3);
+
+        }
+    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
+        }
+
+		Archer1actor_y = 0;
+ 			Archer2actor_y = 0;
+			Archer3actor_y = 0;
+		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyRB.png", "Pawn",5);   //Enemy archer 1
+		EnemyArcher1AI = spawnActor('EnemyArcherAIController1', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher1);   //AIController evil of archer
+		EnemyArcher1AI.DesiredLocToGoX = EnemyArcher1.x; EnemyArcher1AI.DesiredLocToGoY = EnemyArcher1.y; 
+		EnemyArcher1.PawnController = EnemyArcher1AI;  
+    Archer1actor_x=EnemyArcher1.x; 
+		EnemyArcher2 = spawnActor('EnemyArcherExtra2', 60, 0, 2, "enemyRB.png", "Pawn",5);   //Enemy archer 2 
+		EnemyArcher2AI = spawnActor('EnemyArcherAIController2', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher2);   //AIController evil of archer		
+		EnemyArcher2AI.DesiredLocToGoX = EnemyArcher2.x; EnemyArcher2AI.DesiredLocToGoY = EnemyArcher2.y; 		
+		EnemyArcher2.PawnController = EnemyArcher2AI;  		
+		    Archer2actor_x=EnemyArcher2.x; 
+		EnemyArcher3 = spawnActor('EnemyArcherExtra3', 70, 0, 2, "enemyRB.png", "Pawn",5);   //Enemy archer 3 	
+		EnemyArcher3AI = spawnActor('EnemyArcherAIController3', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher3);   //AIController evil of archer	
+		EnemyArcher3AI.DesiredLocToGoX = EnemyArcher3.x; EnemyArcher3AI.DesiredLocToGoY = EnemyArcher3.y; 		
+		EnemyArcher3.PawnController = EnemyArcher3AI; 
+		    Archer3actor_x=EnemyArcher3.x; 
+
+	}
+
+	if( NewStage == 2) 
 	{    
 actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
     if( actorsIngame.indexOf(Knifevar) > -1 )
@@ -2390,6 +2540,71 @@ DestroySpecificActorOfTheWorld(Knifevar);
 		    Archer3actor_x=EnemyArcher3.x; 
 
 	}
+
+	if(NewStage == 6 || NewStage == 7 || NewStage == 8) 
+	{    
+actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
+    if( actorsIngame.indexOf(Knifevar) > -1 )
+DestroySpecificActorOfTheWorld(Knifevar);
+    if( actorsIngame.indexOf(VictoryRudis) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(VictoryRudis);
+
+        }
+    if( actorsIngame.indexOf(EnemyArcher1) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1);
+
+        }
+    if( actorsIngame.indexOf(EnemyArcher1AI) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher1AI);
+
+        }
+	if( actorsIngame.indexOf(EnemyArcher2) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2);
+
+        }
+	if( actorsIngame.indexOf(EnemyArcher2AI) > -1 )
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher2AI); 
+
+        }
+    if(actorsIngame.indexOf(EnemyArcher3) > -1)
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3);
+
+        }
+    if(actorsIngame.indexOf(EnemyArcher3AI) > -1)
+        {
+        DestroySpecificActorOfTheWorld(EnemyArcher3AI);
+
+        }
+
+			Archer1actor_y = 0;
+ 			Archer2actor_y = 0;
+			Archer3actor_y = 0;
+		EnemyArcher1 = spawnActor('EnemyArcherExtra1', 50, 0, 2, "enemyRB.png", "Pawn",6);   //Enemy archer 1
+		EnemyArcher1AI = spawnActor('EnemyArcherAIController1', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher1);   //AIController evil of archer
+		EnemyArcher1AI.DesiredLocToGoX = EnemyArcher1.x; EnemyArcher1AI.DesiredLocToGoY = EnemyArcher1.y; 
+
+		EnemyArcher1.PawnController = EnemyArcher1AI;  
+    Archer1actor_x=EnemyArcher1.x; 
+		EnemyArcher2 = spawnActor('EnemyArcherExtra2', 60, 0, 2, "enemyRB.png", "Pawn",6);   //Enemy archer 2 
+		EnemyArcher2AI = spawnActor('EnemyArcherAIController2', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher2);   //AIController evil of archer		
+		EnemyArcher2AI.DesiredLocToGoX = EnemyArcher2.x; EnemyArcher2AI.DesiredLocToGoY = EnemyArcher2.y; 		
+		EnemyArcher2.PawnController = EnemyArcher2AI;  		
+		    Archer2actor_x=EnemyArcher2.x; 
+		EnemyArcher3 = spawnActor('EnemyArcherExtra3', 70, 0, 2, "enemyRB.png", "Pawn",6);   //Enemy archer 3 	
+		EnemyArcher3AI = spawnActor('EnemyArcherAIController3', 400, 0, 2, "jupiterpower0.png", "AIController", EnemyArcher3);   //AIController evil of archer	
+		EnemyArcher3AI.DesiredLocToGoX = EnemyArcher3.x; EnemyArcher3AI.DesiredLocToGoY = EnemyArcher3.y; 		
+		EnemyArcher3.PawnController = EnemyArcher3AI; 
+		    Archer3actor_x=EnemyArcher3.x; 
+
+	}
+
+
 	if( NewStage == 3 || NewStage == 9) 
 	{
 actorsIngame.forEach(function(value, index, array){if(1){value.DestroySelf(value);}});
