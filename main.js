@@ -1712,7 +1712,7 @@ if((screen==9 && player_x>=130))//rudisfreedom
     {
     if (actorsIngame.indexOf(VictoryRudis) > -1)//rudisfreedom
         {
-        DestroySpecificActorOfTheWorld(VictoryRudis);
+        DestroySpecificActorOfTheWorld(VictoryRudis);freedomplayable=true;
         }
     ctx.drawImage(herofreedom,0,0,128,128,player_x,player_y,128,128)//rudisfreedom
     if(freedomplayable){freedom.play();freedomplayable=false;}
